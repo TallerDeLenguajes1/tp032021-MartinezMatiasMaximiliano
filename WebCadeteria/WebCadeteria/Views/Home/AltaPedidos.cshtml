@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Alta Pedidos";
+}
+
+@model List<WebCadeteria.Entities.Cadete>;
+
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="display-6">Registrar un Pedido</h2>
+                <form asp-action="AltaCadetes" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre del Cliente</label>
+                        <input type="text" class="form-control" id="_NombreClie" name="_NombreClie" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Direccion del Cliente</label>
+                        <input type="text" class="form-control" id="_DireccionClie" name="_DireccionClie" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Telefono del Cliente</label>
+                        <input type="text" class="form-control" id="_TelefonoClie" name="_TelefonoClie" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Observations" class="form-label">Observaciones</label>
+                        <input type="text" class="form-control" id="_Obs" name="_Obs">
+                    </div>
+                    <div>
+                        <label for="Cadete" class="form-label">Cadete</label>
+
+                        <select class="form-select" multiple aria-label="multiple select example">
+
+                            @foreach (var item in Model)
+                            {
+                                 
+                                <option value="@item">@item.Nombre @("[tiene " + item.ListaPedidos.Count() + "pedidos]")</option>
+                            }
+                            
+                        </select>
+                    </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+            <div class="col">
+            </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
