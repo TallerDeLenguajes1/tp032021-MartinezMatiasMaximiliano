@@ -3,14 +3,14 @@
     ViewData["Title"] = "Alta Pedidos";
 }
 
-@model List<WebCadeteria.Entities.Cadete>;
+@model List<WebCadeteria.Entities.Cadete>
 
 <div class="text-center">
     <div class="container">
         <div class="row">
             <div class="col">
                 <h2 class="display-6">Registrar un Pedido</h2>
-                <form asp-action="AltaCadetes" method="post">
+                <form asp-action="AltaPedidos" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre del Cliente</label>
                         <input type="text" class="form-control" id="_NombreClie" name="_NombreClie" required>
@@ -29,15 +29,12 @@
                     </div>
                     <div>
                         <label for="Cadete" class="form-label">Cadete</label>
-
-                        <select class="form-select" multiple aria-label="multiple select example">
-
+                        <select class="form-select" aria-label="Default select example" name="_IdCadete" id="_IdCadete">
                             @foreach (var item in Model)
                             {
-                                 
-                                <option value="@item">@item.Nombre @("[tiene " + item.ListaPedidos.Count() + "pedidos]")</option>
+                                <option value="@item.Id">@item.Nombre</option>
                             }
-                            
+
                         </select>
                     </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -47,6 +44,6 @@
             </div>
             </div>
             <div class="col">
-            </div>
+           </div>
         </div>
     </div>

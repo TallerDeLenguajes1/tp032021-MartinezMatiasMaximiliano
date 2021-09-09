@@ -20,12 +20,13 @@ namespace WebCadeteria.Entities
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        internal List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
+        public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
         public Cadete() { }
 
         public Cadete(string _Nombre, string _Direccion, string _Telefono) {
-            this.id = count++;
+            count++;
+            this.id = count;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;

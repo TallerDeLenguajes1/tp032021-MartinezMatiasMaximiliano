@@ -14,7 +14,7 @@ namespace WebCadeteria
 {
     public class Startup
     {
-        static List<WebCadeteria.Entities.Cadete> listaCadetes = new List<WebCadeteria.Entities.Cadete>();
+        static List<Cadete> listaCadetes = new List<Cadete>();
 
         public Startup(IConfiguration configuration)
         {
