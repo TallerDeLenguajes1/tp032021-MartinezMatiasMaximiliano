@@ -14,7 +14,7 @@ namespace WebCadeteria
 {
     public class Startup
     {
-        static List<Cadete> listaCadetes = new List<Cadete>();
+        static Cadeteria cadeteria = new Cadeteria("Prueba");
 
         public Startup(IConfiguration configuration)
         {
@@ -27,7 +27,7 @@ namespace WebCadeteria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton(listaCadetes);
+            services.AddSingleton(cadeteria);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

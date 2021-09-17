@@ -14,6 +14,7 @@
             <th scope="col">Direccion</th>
             <th scope="col">Telefono</th>
             <th scope="col">Cantidad de Pedidos</th>
+            <th scope="col">Pago</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -22,6 +23,7 @@
                 <td>@item.Direccion</td>
                 <td>@item.Telefono</td>
                 <td>@item.ListaPedidos.Count()</td>
+                <td>$@item.Pago()</td>
             </tr>
         }
          

@@ -14,7 +14,7 @@ namespace WebCadeteria.Entities
         private string nombre;
         private string direccion;
         private string telefono;
-        private List<Pedido> listaPedidos = new List<Pedido>();
+        private List<Pedido> listaPedidos;
 
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
@@ -30,6 +30,7 @@ namespace WebCadeteria.Entities
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;
+            this.listaPedidos = new List<Pedido>();
         }
 
         public void AgregarPedido(Pedido _Pedido){ListaPedidos.Add(_Pedido);}
@@ -39,7 +40,7 @@ namespace WebCadeteria.Entities
             int aux = 0;
             foreach (var item in listaPedidos)
             {
-                if (item.Estado == Pedido.EnumEstado.Entregado)
+                if (item.Estado == EnumEstado.Entregado)
                 {
                     aux += 100;
                 }
