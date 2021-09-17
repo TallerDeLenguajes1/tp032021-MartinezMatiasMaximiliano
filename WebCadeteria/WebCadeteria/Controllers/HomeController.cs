@@ -26,6 +26,11 @@ namespace WebCadeteria.Controllers
             return View(cadeteria.ListaCadetes);
         }
 
+        public IActionResult ListaPedidos()
+        {
+            return View(cadeteria.ListaPedidos);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

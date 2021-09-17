@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebCadeteria.Entities
 {
-    public enum EnumEstado {Entregado,Cancelado,EnProceso}
+    public enum EnumEstado {Entregado,EnProceso,Cancelado}
 
     public class Pedido
     {
@@ -20,17 +20,17 @@ namespace WebCadeteria.Entities
         public int Nro { get => nro; set => nro = value; }
         public static int Count { get => count; set => count = value; }
         public string Obs { get => obs; set => obs = value; }
-        internal EnumEstado Estado { get => estado; set => estado = value; }
-        internal Cliente Cliente { get => cliente; set => cliente = value; }
+        public EnumEstado Estado { get => estado; set => estado = value; }
+        public Cliente Cliente { get => cliente; set => cliente = value; }
 
         public Pedido() { }
 
-        public Pedido(string _Obs, EnumEstado _Estado, string _Nombre, string _Direccion, string _Telefono)
+        public Pedido(string _Nombre, string _Direccion, string _Telefono,string _Obs, int _Estado)
         {
             this.Nro = count++;
-            this.Obs = _Obs;
-            this.Estado = _Estado;
             this.Cliente = new Cliente(_Nombre,_Direccion,_Telefono);
+            this.Obs = _Obs;
+            this.Estado = (EnumEstado)_Estado;
         }
 
         public void CambiarEstado(EnumEstado _NuevoEstado){this.estado = _NuevoEstado;}

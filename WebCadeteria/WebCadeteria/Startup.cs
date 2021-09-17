@@ -14,7 +14,7 @@ namespace WebCadeteria
 {
     public class Startup
     {
-        static Cadeteria cadeteria = new Cadeteria("Prueba");
+        static Cadeteria cadeteria = new Cadeteria("Express");
 
         public Startup(IConfiguration configuration)
         {

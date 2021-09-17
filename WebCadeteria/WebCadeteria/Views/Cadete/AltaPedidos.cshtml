@@ -1,9 +1,6 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Alta Pedidos";
 }
-
-@model List<WebCadeteria.Entities.Cadete>
 
 <div class="text-center">
     <div class="container">
@@ -28,13 +25,11 @@
                         <input type="text" class="form-control" id="_Obs" name="_Obs">
                     </div>
                     <div>
-                        <label for="Cadete" class="form-label">Cadete</label>
-                        <select class="form-select" aria-label="Default select example" name="_IdCadete" id="_IdCadete">
-                            @foreach (var item in Model)
-                            {
-                                <option value="@item.Id">@item.Nombre</option>
-                            }
-
+                        <label for="Status" class="form-label">Estado</label>
+                        <select class="form-select" multiple aria-label="multiple select example" name="_Estado">
+                            <option value="0">Entregado</option>
+                            <option value="1">En Proceso</option>
+                            <option value="2">Cancelado</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>

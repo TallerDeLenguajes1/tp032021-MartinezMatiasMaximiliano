@@ -15,6 +15,7 @@ namespace WebCadeteria.Controllers
         {
             cadeteria = _cadeteria;
         }
+
         public IActionResult AltaCadetes(string _Nombre, string _Direccion, string _Telefono)
         {
             if (_Nombre == null || _Direccion == null || _Telefono == null)
@@ -24,26 +25,20 @@ namespace WebCadeteria.Controllers
             else
             {
                 CargarCadete(_Nombre,_Direccion,_Telefono);
-                return View();
+                return View("../Home/Index",cadeteria.ListaCadetes);
             }
         }
 
-        public IActionResult AltaPedidos(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, EnumEstado _Estado, int _IdCadete)
+        public IActionResult AltaPedidos(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, int _Estado)
         {
             if (_NombreClie == null || _DireccionClie == null || _TelefonoClie == null)
             {
-                return View(cadeteria.ListaCadetes);
+                return View(cadeteria.ListaPedidos);
             }
             else
             {
-                Pedido nuevoPedido = new Pedido(_Obs, _Estado, _NombreClie, _DireccionClie, _TelefonoClie);
-
-                foreach (var item in cadeteria.ListaCadetes)
-                {
-                    if (item.Id == _IdCadete){item.AgregarPedido(nuevoPedido);}
-                }
-
-                return View(cadeteria.ListaCadetes);
+                CargarPedido(_NombreClie,_DireccionClie,_TelefonoClie,_Obs,_Estado);
+                return View("../Home/ListaPedidos",cadeteria.ListaPedidos);
             }
         }
 
@@ -53,5 +48,10 @@ namespace WebCadeteria.Controllers
             cadeteria.ListaCadetes.Add(nuevoCadete);
         }
 
+        public void CargarPedido(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, int _Estado)
+        {
+            Pedido nuevoPedido = new Pedido(_NombreClie, _DireccionClie, _TelefonoClie,_Obs, _Estado);
+            cadeteria.ListaPedidos.Add(nuevoPedido);
+        }
     }
 }

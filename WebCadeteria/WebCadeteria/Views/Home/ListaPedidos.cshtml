@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "ListaPedidos";
+}
+
+@model List<WebCadeteria.Entities.Pedido>
+
+<div class="text-center">
+    <h1 class="display-4">Lista de Pedidos</h1>
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Nº de Pedido</th>
+            <th scope="col">Nombre del Cliente</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Observacion</th>
+            <th scope="col">Estado</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nro</td>
+                <td>@item.Cliente.Nombre</td>
+                <td>@item.Cliente.Direccion</td>
+                <td>@item.Obs</td>
+                <td>@item.Estado</td>
+            </tr>
+        }
+    </table>
+</div>
