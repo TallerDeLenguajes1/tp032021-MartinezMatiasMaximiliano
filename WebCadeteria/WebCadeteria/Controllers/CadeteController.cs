@@ -25,7 +25,7 @@ namespace WebCadeteria.Controllers
             else
             {
                 CargarCadete(_Nombre,_Direccion,_Telefono);
-                return View("../Home/Index",cadeteria.ListaCadetes);
+                return View("../Home/Index",cadeteria);
             }
         }
 
@@ -33,13 +33,19 @@ namespace WebCadeteria.Controllers
         {
             if (_NombreClie == null || _DireccionClie == null || _TelefonoClie == null)
             {
-                return View(cadeteria.ListaPedidos);
+                return View(cadeteria);
             }
             else
             {
-                CargarPedido(_NombreClie,_DireccionClie,_TelefonoClie,_Obs,_Estado);
-                return View("../Home/ListaPedidos",cadeteria.ListaPedidos);
+                CargarPedido(_NombreClie, _DireccionClie, _TelefonoClie, _Obs, _Estado);
+                return View("../Home/ListaPedidos", cadeteria);
             }
+        }
+        
+        public void CargarPedido(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, int _Estado)
+        {
+            Pedido nuevoPedido = new Pedido(_NombreClie, _DireccionClie, _TelefonoClie, _Obs, _Estado);
+            cadeteria.ListaPedidos.Add(nuevoPedido);
         }
 
         public void CargarCadete(string _Nombre, string _Direccion, string _Telefono)
@@ -48,10 +54,7 @@ namespace WebCadeteria.Controllers
             cadeteria.ListaCadetes.Add(nuevoCadete);
         }
 
-        public void CargarPedido(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, int _Estado)
-        {
-            Pedido nuevoPedido = new Pedido(_NombreClie, _DireccionClie, _TelefonoClie,_Obs, _Estado);
-            cadeteria.ListaPedidos.Add(nuevoPedido);
-        }
+
+
     }
 }

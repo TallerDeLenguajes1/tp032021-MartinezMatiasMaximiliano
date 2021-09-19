@@ -2,28 +2,61 @@
     ViewData["Title"] = "ListaPedidos";
 }
 
-@model List<WebCadeteria.Entities.Pedido>
+@model WebCadeteria.Entities.Cadeteria
 
-<div class="text-center">
-    <h1 class="display-4">Lista de Pedidos</h1>
-    <table class="table table-striped">
-        <tr>
-            <th scope="col">Nº de Pedido</th>
-            <th scope="col">Nombre del Cliente</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Observacion</th>
-            <th scope="col">Estado</th>
-        </tr>
+<div>
+    <div class="text-center">
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Nro</td>
-                <td>@item.Cliente.Nombre</td>
-                <td>@item.Cliente.Direccion</td>
-                <td>@item.Obs</td>
-                <td>@item.Estado</td>
-            </tr>
-        }
-    </table>
+        <h1 class="display-4">Lista de Pedidos</h1>
+        <form asp-action="AsignarCadete" asp-controller="Home" method="post">
+            <table class="table table-striped">
+                <tr>
+                    <th scope="col">Nº de Pedido</th>
+                    <th scope="col">Nombre del Cliente</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Cadete Asignado</th>
+                    <th scope="col">Reasignar Cadete</th>
+                    <th scope="col">Reasignar?</th>
+                </tr>
+
+                @foreach (var pedido in Model.ListaPedidos)
+                {
+                    <tr>
+                        <td hidden><input name="_IdPedido" value="@pedido.Nro"></td>
+                        <td>@pedido.Nro</td>
+                        <td>@pedido.Cliente.Nombre</td>
+                        <td>@pedido.Cliente.Direccion</td>
+                        <td>@pedido.Obs</td>
+                        <td>@pedido.Estado</td>
+
+                        @foreach (var cadete in Model.ListaCadetes)
+                        {
+                            @if (cadete.ListaPedidos.Exists(a => a.Nro == pedido.Nro))
+                            {
+
+                                <td>@cadete.Nombre</td>
+                            }
+                            else
+                            {
+                                 <td>No asignado</td>
+                            }
+                        }
+
+                        <td>
+                            <select class="form-select" name="_IdCadete">
+                                <option value="-1">No Asignar</option>
+                                @foreach (var cadete in Model.ListaCadetes)
+                                {
+                                    <option value="@cadete.Id">@cadete.Nombre</option>
+                                }
+                            </select>
+                        </td>
+                        <td><button type="submit" class="btn btn-primary">Reasignar</button></td>
+                    </tr>
+                }
+            </table>
+        </form>
+    </div>
 </div>

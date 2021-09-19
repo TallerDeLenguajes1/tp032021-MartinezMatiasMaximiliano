@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<WebCadeteria.Entities.Cadete>
+@model WebCadeteria.Entities.Cadeteria
 
 <div class="text-center">
     <h1 class="display-4">Lista de Cadetes</h1>
@@ -16,7 +16,7 @@
             <th scope="col">Cantidad de Pedidos</th>
             <th scope="col">Pago</th>
         </tr>
-        @foreach (var item in Model)
+        @foreach (var item in Model.ListaCadetes)
         {
             <tr>
                 <td>@item.Nombre</td>
@@ -26,7 +26,7 @@
                 <td>$@item.Pago()</td>
             </tr>
         }
-         
-        </table>
+
+    </table>
 
 </div>
