@@ -6,9 +6,8 @@
 
 <div>
     <div class="text-center">
-
         <h1 class="display-4">Lista de Pedidos</h1>
-        <form asp-action="AsignarCadete" asp-controller="Home" method="post">
+        <form  method="post">
             <table class="table table-striped">
                 <tr>
                     <th scope="col">Nº de Pedido</th>
@@ -31,7 +30,7 @@
                         <td>@pedido.Obs</td>
                         <td>@pedido.Estado</td>
 
-                        @foreach (var cadete in Model.ListaCadetes)
+                        @*@foreach (var cadete in Model.ListaCadetes)
                         {
                             @if (cadete.ListaPedidos.Exists(a => a.Nro == pedido.Nro))
                             {
@@ -42,9 +41,9 @@
                             {
                                  <td>No asignado</td>
                             }
-                        }
+                        }*@
 
-                        <td>
+                        @*<td>
                             <select class="form-select" name="_IdCadete">
                                 <option value="-1">No Asignar</option>
                                 @foreach (var cadete in Model.ListaCadetes)
@@ -52,8 +51,8 @@
                                     <option value="@cadete.Id">@cadete.Nombre</option>
                                 }
                             </select>
-                        </td>
-                        <td><button type="submit" class="btn btn-primary">Reasignar</button></td>
+                        </td>*@
+                        <td><button type="submit" class="btn btn-primary" asp-action="AsignarCadete">Reasignar</button></td>
                     </tr>
                 }
             </table>
