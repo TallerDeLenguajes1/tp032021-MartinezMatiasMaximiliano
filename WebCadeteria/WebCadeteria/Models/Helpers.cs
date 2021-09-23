@@ -13,6 +13,11 @@ namespace WebCadeteria.Helpers
         {
             try
             {
+                if (!File.Exists(_Path))
+                {
+                    return  "[]";
+                    
+                }
                 string read;
                 StreamReader reader = new StreamReader(_Path);
                 read = reader.ReadToEnd();

@@ -7,7 +7,7 @@
 <div>
     <div class="text-center">
         <h1 class="display-4">Lista de Pedidos</h1>
-        <form  method="post">
+        <form method="post">
             <table class="table table-striped">
                 <tr>
                     <th scope="col">Nº de Pedido</th>
@@ -16,43 +16,34 @@
                     <th scope="col">Observacion</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Cadete Asignado</th>
-                    <th scope="col">Reasignar Cadete</th>
                     <th scope="col">Reasignar?</th>
                 </tr>
 
                 @foreach (var pedido in Model.ListaPedidos)
                 {
                     <tr>
-                        <td hidden><input name="_IdPedido" value="@pedido.Nro"></td>
+                        <td hidden></td>
                         <td>@pedido.Nro</td>
                         <td>@pedido.Cliente.Nombre</td>
                         <td>@pedido.Cliente.Direccion</td>
                         <td>@pedido.Obs</td>
                         <td>@pedido.Estado</td>
+                        <td>
+                            
 
-                        @*@foreach (var cadete in Model.ListaCadetes)
-                        {
-                            @if (cadete.ListaPedidos.Exists(a => a.Nro == pedido.Nro))
-                            {
+                        </td>
 
-                                <td>@cadete.Nombre</td>
-                            }
-                            else
-                            {
-                                 <td>No asignado</td>
-                            }
-                        }*@
-
-                        @*<td>
-                            <select class="form-select" name="_IdCadete">
+                        <td>
+                            <select>
                                 <option value="-1">No Asignar</option>
                                 @foreach (var cadete in Model.ListaCadetes)
-                                {
+                                { 
                                     <option value="@cadete.Id">@cadete.Nombre</option>
                                 }
                             </select>
-                        </td>*@
-                        <td><button type="submit" class="btn btn-primary" asp-action="AsignarCadete">Reasignar</button></td>
+                        </td>
+                        <td><button type="submit" class="btn btn-primary" asp-action="AsignarCadete" name="_IdPedido" value="@pedido.Nro">Reasignar</button></td>
+
                     </tr>
                 }
             </table>

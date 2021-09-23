@@ -7,8 +7,11 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebCadeteria.Entities;
+using WebCadeteria.Helpers;
+using System.IO;
 
 namespace WebCadeteria
 {
@@ -19,6 +22,8 @@ namespace WebCadeteria
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            cadeteria.ListaCadetes = JsonSerializer.Deserialize<List<Cadete>>(HelperModules.ReadFile("listaCadetes.json"),);
         }
 
         public IConfiguration Configuration { get; }

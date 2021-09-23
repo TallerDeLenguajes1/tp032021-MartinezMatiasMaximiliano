@@ -20,14 +20,13 @@
             @foreach (var cadete in Model.ListaCadetes)
             {
                 <tr>
-                    <td hidden><input value="@cadete.Id" name="_IdCadete"></td>
                     <td>@cadete.Nombre</td>
                     <td>@cadete.Direccion</td>
                     <td>@cadete.Telefono</td>
                     <td>@cadete.ListaPedidos.Count()</td>
                     <td>$@cadete.Pago()</td>
-                    <td><button type="submit" class="btn btn-primary" asp-action="BajaCadete" asp-controller="Cadete">Borrar</button></td>
-                    <td><button type="submit" class="btn btn-primary" asp-action="ModCadete" asp-controller="Cadete">Modificar</button></td>
+                    <td><button type="submit" class="btn btn-primary" asp-action="BajaCadete" asp-controller="Cadete" value="@cadete.Id" name="_IdCadete">Borrar</button></td>
+                    <td><button type="submit" class="btn btn-primary" asp-action="ModCadete" asp-controller="Cadete" value="@cadete.Id" name="_IdCadete">Modificar</button></td>
                 </tr>
             }
         </table>

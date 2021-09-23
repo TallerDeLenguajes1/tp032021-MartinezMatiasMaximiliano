@@ -29,7 +29,7 @@ namespace WebCadeteria.Controllers
             }
             else
             {
-                Pedido nuevoPedido = new (_NombreClie, _DireccionClie, _TelefonoClie, _Obs, _Estado);
+                Pedido nuevoPedido = new(_NombreClie, _DireccionClie, _TelefonoClie, _Obs, _Estado);
                 cadeteria.ListaPedidos.Add(nuevoPedido);
                 return View("../Pedido/ListaPedidos", cadeteria);
             }
@@ -44,7 +44,17 @@ namespace WebCadeteria.Controllers
 
         public IActionResult AsignarCadete(int _IdPedido, int _IdCadete)
         {
+            if (_IdCadete != -1)
+            {
+                cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Add(cadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
                 return View("ListaPedidos", cadeteria);
+
+            }
+            else
+            {
+                cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Remove(cadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
+                return View("ListaPedidos", cadeteria);
+            }
         }
 
     }

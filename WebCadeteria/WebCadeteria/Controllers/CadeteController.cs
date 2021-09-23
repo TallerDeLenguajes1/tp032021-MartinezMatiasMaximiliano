@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebCadeteria.Entities;
 using WebCadeteria.Helpers;
@@ -27,6 +28,7 @@ namespace WebCadeteria.Controllers
             {
                 Cadete nuevoCadete = new Cadete(_Nombre, _Direccion, _Telefono);
                 cadeteria.ListaCadetes.Add(nuevoCadete);
+                HelperModules.WriteFile(JsonSerializer.Serialize(cadeteria.ListaCadetes), "listaCadetes.json");
                 return View("../Home/Index",cadeteria);
             }
         }
@@ -34,12 +36,12 @@ namespace WebCadeteria.Controllers
         public IActionResult BajaCadete(int _IdCadete)
         {
             cadeteria.ListaCadetes.Remove(cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete));
+            HelperModules.WriteFile(JsonSerializer.Serialize(cadeteria.ListaCadetes), "listaCadetes.json");
             return View("../Home/Index", cadeteria);
         }
 
         public IActionResult ModCadete()
         {
-
             return View("../Home/Index", cadeteria);
         }
     }
