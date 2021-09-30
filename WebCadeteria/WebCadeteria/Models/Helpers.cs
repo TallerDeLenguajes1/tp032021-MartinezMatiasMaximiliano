@@ -13,27 +13,20 @@ namespace WebCadeteria.Helpers
         {
             try
             {
-                if (!File.Exists(_Path))
-                {
-                    return  "[]";
-                    
-                }
                 string read;
-                StreamReader reader = new StreamReader(_Path);
-                read = reader.ReadToEnd();
-
-                return read;
+                using (FileStream stream = new FileStream(_Path, FileMode.OpenOrCreate))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        read = reader.ReadToEnd();
+                        return read;
+                    }
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception e)
             {
-                return "file not found";
-
+                return e.Message;
             }
-            catch (FileLoadException)
-            {
-                return "file could not load";
-            }
-
         }
         public static void WriteFile(string _Content, string _Path)
         {
@@ -43,35 +36,38 @@ namespace WebCadeteria.Helpers
                 {
                     File.Create(_Path).Close();
                 }
-
                 StreamWriter writer = new StreamWriter(_Path, false);
                 writer.WriteLine(_Content);
                 writer.Flush();
                 writer.Close();
+                writer.Dispose();
             }
             catch (Exception e)
             {
-
-                Console.WriteLine($"no se pudo escribir el archivo {e.Message}");
+                string error = e.Message;
             }
 
         }
-        public static string ReadWebResponse(string _Http, string _Method){
+        public static string ReadWebResponse(string _Http, string _Method)
+        {
             var request = (HttpWebRequest)WebRequest.Create(_Http);
             request.Method = _Method;
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            WebResponse response = request.GetResponse();
-
-            Stream stream = response.GetResponseStream();
-            string recieved = "";
-            if (stream != null)
+            using (WebResponse response = request.GetResponse())
             {
-                StreamReader reader = new StreamReader(stream);
-                recieved = reader.ReadToEnd();
+                using (Stream stream = response.GetResponseStream())
+                {
+                    string recieved = "";
+                    if (stream != null)
+                    {
+                        StreamReader reader = new StreamReader(stream);
+                        recieved = reader.ReadToEnd();
+                    }
+                    return recieved;
+                }
             }
-            return recieved;
         }
     }
 }

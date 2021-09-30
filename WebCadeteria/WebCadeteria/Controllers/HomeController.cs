@@ -13,17 +13,18 @@ namespace WebCadeteria.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Cadeteria cadeteria;
 
-        public HomeController(Cadeteria _cadeteria)
+        private readonly DBTemporal DB;
+
+        public HomeController(DBTemporal dB)
         {
-            cadeteria = _cadeteria;
+            DB = dB;
         }
 
         public IActionResult Index()
         {
-            return View(cadeteria);
-        }   
+            return View(DB.MiCadeteria);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

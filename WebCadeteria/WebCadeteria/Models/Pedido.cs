@@ -27,8 +27,8 @@ namespace WebCadeteria.Entities
 
         public Pedido(string _Nombre, string _Direccion, string _Telefono,string _Obs, int _Estado)
         {
-            count++;
-            this.Nro = count;
+           
+            this.Nro = ++count;
             this.Cliente = new Cliente(_Nombre,_Direccion,_Telefono);
             this.Obs = _Obs;
             this.Estado = (EnumEstado)_Estado;

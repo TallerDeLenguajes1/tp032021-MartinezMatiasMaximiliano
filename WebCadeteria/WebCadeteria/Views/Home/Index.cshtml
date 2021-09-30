@@ -9,6 +9,7 @@
     <form method="post">
         <table class="table table-striped">
             <tr>
+                <th scope="col">Nº de Cadete</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Direccion</th>
                 <th scope="col">Telefono</th>
@@ -20,13 +21,14 @@
             @foreach (var cadete in Model.ListaCadetes)
             {
                 <tr>
+                    <td>@cadete.Id</td>
                     <td>@cadete.Nombre</td>
                     <td>@cadete.Direccion</td>
                     <td>@cadete.Telefono</td>
                     <td>@cadete.ListaPedidos.Count()</td>
                     <td>$@cadete.Pago()</td>
                     <td><button type="submit" class="btn btn-primary" asp-action="BajaCadete" asp-controller="Cadete" value="@cadete.Id" name="_IdCadete">Borrar</button></td>
-                    <td><button type="submit" class="btn btn-primary" asp-action="ModCadete" asp-controller="Cadete" value="@cadete.Id" name="_IdCadete">Modificar</button></td>
+                    <td><button type="submit" class="btn btn-primary" asp-action="SelectCadete" asp-controller="Cadete" value="@cadete.Id" name="_IdCadete">Modificar</button></td>
                 </tr>
             }
         </table>

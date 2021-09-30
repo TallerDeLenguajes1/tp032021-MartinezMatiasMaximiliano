@@ -23,7 +23,7 @@ namespace WebCadeteria.Entities
         public Cliente() { }
 
         public Cliente(string _Nombre,string _Direccion,string _Telefono) {
-            this.id = count++;
+            this.id = ++count;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;

@@ -9,17 +9,17 @@ namespace WebCadeteria.Entities
     public class Cadeteria
     {
         private string nombre;
-        private List<Cadete> listaCadetes = new List<Cadete>();
-        private List<Pedido> listaPedidos = new List<Pedido>();
+        private List<Cadete> listaCadetes;
+        private List<Pedido> listaPedidos;
 
         public string Nombre { get => nombre; set => nombre = value;}
         public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
         public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
-        public Cadeteria() { }
-
-        public Cadeteria(string _Nombre){
-            this.nombre = _Nombre;
+        public Cadeteria(string _Nombre)
+        {
+            listaCadetes = new List<Cadete>();
+            listaPedidos = new List<Pedido>();
         }
     }
 }

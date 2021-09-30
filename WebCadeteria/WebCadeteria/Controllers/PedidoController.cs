@@ -2,58 +2,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebCadeteria.Entities;
+using WebCadeteria.Helpers;
 
 namespace WebCadeteria.Controllers
 {
     public class PedidoController : Controller
     {
-        private readonly Cadeteria cadeteria;
+        private readonly DBTemporal DB;
 
-        public PedidoController(Cadeteria _cadeteria)
+        public PedidoController(DBTemporal dB)
         {
-            cadeteria = _cadeteria;
+            DB = dB;
         }
 
         public IActionResult ListaPedidos()
         {
-            return View(cadeteria);
+            return View(DB.MiCadeteria);
         }
 
         public IActionResult AltaPedido(string _NombreClie, string _DireccionClie, string _TelefonoClie, string _Obs, int _Estado)
         {
             if (_NombreClie == null || _DireccionClie == null || _TelefonoClie == null)
             {
-                return View(cadeteria);
+                return View(DB.MiCadeteria);
             }
             else
             {
                 Pedido nuevoPedido = new(_NombreClie, _DireccionClie, _TelefonoClie, _Obs, _Estado);
-                cadeteria.ListaPedidos.Add(nuevoPedido);
-                return View("../Pedido/ListaPedidos", cadeteria);
+                DB.MiCadeteria.ListaPedidos.Add(nuevoPedido);
+                HelperModules.WriteFile(JsonSerializer.Serialize(DB.MiCadeteria.ListaPedidos), DB.pathPedidos);
+                return View("../Pedido/ListaPedidos", DB.MiCadeteria);
             }
         }
 
         public IActionResult BajaPedido(int _IdPedido)
         {
-            cadeteria.ListaPedidos.Remove(cadeteria.ListaPedidos.Find(x => x.Nro == _IdPedido));
-            return View("../Pedido/ListaPedidos", cadeteria);
+            DB.MiCadeteria.ListaPedidos.Remove(DB.MiCadeteria.ListaPedidos.Find(x => x.Nro == _IdPedido));
+            return View("../Pedido/ListaPedidos", DB.MiCadeteria);
         }
 
 
         public IActionResult AsignarCadete(int _IdPedido, int _IdCadete)
         {
-            if (_IdCadete != -1)
+            if (_IdCadete == -1)
             {
-                cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Add(cadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
-                return View("ListaPedidos", cadeteria);
-
+                DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Remove(DB.MiCadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
+                return View("ListaPedidos", DB.MiCadeteria);
             }
             else
             {
-                cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Remove(cadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
-                return View("ListaPedidos", cadeteria);
+                DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Add(DB.MiCadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
+                return View("ListaPedidos", DB.MiCadeteria);
             }
         }
 

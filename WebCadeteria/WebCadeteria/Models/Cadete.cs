@@ -8,8 +8,8 @@ namespace WebCadeteria.Entities
 {
     public class Cadete
     {
-        private static int count = 0;
 
+        private static int count = 0;
         private int id;
         private string nombre;
         private string direccion;
@@ -24,16 +24,16 @@ namespace WebCadeteria.Entities
 
         public Cadete() { }
 
-        public Cadete(string _Nombre, string _Direccion, string _Telefono) {
-            count++;
-            this.id = count;
+        public Cadete(string _Nombre, string _Direccion, string _Telefono)
+        {
+            this.id = ++count;
             this.Nombre = _Nombre;
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;
             this.listaPedidos = new List<Pedido>();
         }
 
-        public void AgregarPedido(Pedido _Pedido){ListaPedidos.Add(_Pedido);}
+        public void AgregarPedido(Pedido _Pedido) { ListaPedidos.Add(_Pedido); }
 
         public int Pago()
         {
@@ -45,7 +45,7 @@ namespace WebCadeteria.Entities
                     aux += 100;
                 }
             }
-            return aux;        
+            return aux;
         }
     }
 }

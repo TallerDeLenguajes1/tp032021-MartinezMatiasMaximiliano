@@ -1,9 +1,8 @@
 #Cadeteria
 
-Falta:
-json para persistencia (¿donde hacerlo? metodos creados) <br>
-baja de cadete <br>
-baja de pedido <br>
-muchos cadetes para un pedido <br>
+Pendientes:
+asignar pedidos(form manda mal los ids)<br>
+mostrar cadete asignado / no asignado <br>
 
+evitar caer en la locura (status: failed)
 

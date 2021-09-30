@@ -11,38 +11,51 @@ namespace WebCadeteria.Controllers
 {
     public class CadeteController : Controller
     {
-        private readonly Cadeteria cadeteria;
 
-        public CadeteController(Cadeteria _cadeteria)
+        private readonly DBTemporal DB;
+
+        public CadeteController(DBTemporal dB)
         {
-            cadeteria = _cadeteria;
+            DB = dB;
         }
 
         public IActionResult AltaCadete(string _Nombre, string _Direccion, string _Telefono)
         {
             if (_Nombre == null || _Direccion == null || _Telefono == null)
             {
-                return View(cadeteria);
+                return View(DB.MiCadeteria);
             }
             else
             {
                 Cadete nuevoCadete = new Cadete(_Nombre, _Direccion, _Telefono);
-                cadeteria.ListaCadetes.Add(nuevoCadete);
-                HelperModules.WriteFile(JsonSerializer.Serialize(cadeteria.ListaCadetes), "listaCadetes.json");
-                return View("../Home/Index",cadeteria);
+                DB.MiCadeteria.ListaCadetes.Add(nuevoCadete);
+                HelperModules.WriteFile(JsonSerializer.Serialize(DB.MiCadeteria.ListaCadetes), DB.pathCadetes);
+                return View("../Home/Index", DB.MiCadeteria);
             }
         }
 
         public IActionResult BajaCadete(int _IdCadete)
         {
-            cadeteria.ListaCadetes.Remove(cadeteria.ListaCadetes.Find(x => x.Id == _IdCadete));
-            HelperModules.WriteFile(JsonSerializer.Serialize(cadeteria.ListaCadetes), "listaCadetes.json");
-            return View("../Home/Index", cadeteria);
+            DB.MiCadeteria.ListaCadetes.Remove(DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete));
+            HelperModules.WriteFile(JsonSerializer.Serialize(DB.MiCadeteria.ListaCadetes), DB.pathCadetes);
+            return View("../Home/Index", DB.MiCadeteria);
         }
 
-        public IActionResult ModCadete()
+        public IActionResult SelectCadete(int _IdCadete)
         {
-            return View("../Home/Index", cadeteria);
+            return View("ModificarCadete",DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete));
+        }
+
+
+        public IActionResult ModificarCadete(int _IdCadete, string _Nombre, string _Direccion, string _Telefono)
+        {
+            Cadete aux = DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete);
+            aux.Nombre = _Nombre;
+            aux.Direccion = _Direccion;
+            aux.Telefono = _Telefono;
+            HelperModules.WriteFile(JsonSerializer.Serialize(DB.MiCadeteria.ListaCadetes), DB.pathCadetes);
+            return View("../Home/Index", DB.MiCadeteria);
         }
     }
 }
+

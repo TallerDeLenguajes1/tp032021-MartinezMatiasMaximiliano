@@ -17,13 +17,11 @@ namespace WebCadeteria
 {
     public class Startup
     {
-        static Cadeteria cadeteria = new Cadeteria("Express");
+        static DBTemporal DB = new DBTemporal("Express");
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            cadeteria.ListaCadetes = JsonSerializer.Deserialize<List<Cadete>>(HelperModules.ReadFile("listaCadetes.json"),);
         }
 
         public IConfiguration Configuration { get; }
@@ -32,7 +30,7 @@ namespace WebCadeteria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton(cadeteria);
+            services.AddSingleton(DB);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
