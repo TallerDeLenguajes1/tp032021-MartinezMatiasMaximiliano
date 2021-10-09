@@ -1,1 +1,1 @@
-[{"Nro":1,"Obs":"pizza","Estado":0,"Cliente":{"Id":1,"Nombre":"qawer","Direccion":"asdfkjasdhf","Telefono":"23423"}},{"Nro":2,"Obs":"pizza","Estado":1,"Cliente":{"Id":2,"Nombre":"choco","Direccion":"asdfkjasdhf","Telefono":"23423"}}]
+[{"Nro":1,"Obs":"pizza","Estado":2,"Cliente":{"Id":1,"Nombre":"choco","Direccion":"asdfkjasdhf","Telefono":"23423"}}]

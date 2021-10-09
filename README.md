@@ -1,8 +1,9 @@
 #Cadeteria
 
 Pendientes:
-asignar pedidos(form manda mal los ids)<br>
-mostrar cadete asignado / no asignado <br>
+Mejorar modal de modificar cadete (forma el mismo form para todos los cadetes)<br>
+Guardar ultimos IDs creados<br>
+
 
 evitar caer en la locura (status: failed)
 

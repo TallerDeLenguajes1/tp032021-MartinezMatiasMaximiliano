@@ -28,26 +28,24 @@
                     <td>@pedido.Cliente.Direccion</td>
                     <td>@pedido.Obs</td>
                     <td>@pedido.Estado</td>
-
                     <td>
                         @foreach (var cadete in Model.ListaCadetes)
                         {
                             if (cadete.ListaPedidos.Exists(x => x.Nro == pedido.Nro))
                             {
+                                @cadete.Nombre
+                                break;
                             }
-
                         }
-
                     </td>
-
                     <td>
                         <form asp-action="AsignarCadete" asp-controller="Pedido" method="post">
                             <input type="hidden" value="@pedido.Nro" id="_IdPedido" name="_IdPedido">
-                            <select>
-                                <option value="-1" id="_IdCadete" name="_IdCadete">No Asignar</option>
+                            <select id="_IdCadete" name="_IdCadete">
+                                <option value="-1">No Asignar</option>
                                 @foreach (var cadete in Model.ListaCadetes)
                                 {
-                                    <option value="@cadete.Id" id="_IdCadete" name="_IdCadete">@cadete.Nombre</option>
+                                    <option value="@cadete.Id">@cadete.Nombre</option>
                                 }
                             </select>
                             <button type="submit" class="btn btn-primary">Reasignar</button>

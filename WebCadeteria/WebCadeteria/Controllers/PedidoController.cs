@@ -49,15 +49,27 @@ namespace WebCadeteria.Controllers
         {
             if (_IdCadete == -1)
             {
-                DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Remove(DB.MiCadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
+                foreach (var item in DB.MiCadeteria.ListaCadetes)
+                {
+                    if (item.ListaPedidos.Exists(x => x.Nro == _IdPedido))
+                    {
+                        item.ListaPedidos.Remove(item.ListaPedidos.Find(x => x.Nro == _IdPedido));   
+                    }
+                }
                 return View("ListaPedidos", DB.MiCadeteria);
             }
             else
             {
+                foreach (var item in DB.MiCadeteria.ListaCadetes)
+                {
+                    if (item.ListaPedidos.Exists(x => x.Nro == _IdPedido))
+                    {
+                        item.ListaPedidos.Remove(item.ListaPedidos.Find(x => x.Nro == _IdPedido));
+                    }
+                }
                 DB.MiCadeteria.ListaCadetes.Find(x => x.Id == _IdCadete).ListaPedidos.Add(DB.MiCadeteria.ListaPedidos.Find(a => a.Nro == _IdPedido));
                 return View("ListaPedidos", DB.MiCadeteria);
             }
         }
-
     }
 }
