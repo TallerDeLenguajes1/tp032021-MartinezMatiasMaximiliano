@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebCadeteria.Entities;
 using WebCadeteria.Helpers;
+using WebCadeteria.Models;
 
 namespace WebCadeteria.Controllers
 {
@@ -13,17 +14,18 @@ namespace WebCadeteria.Controllers
     {
 
         private readonly DBTemporal DB;
-
-        public CadeteController(DBTemporal dB)
+        private readonly RepositorioCadete Repo;
+        public CadeteController(DBTemporal dB, RepositorioCadete repo)
         {
             DB = dB;
+            Repo = repo;
         }
 
         public IActionResult AltaCadete(string _Nombre, string _Direccion, string _Telefono)
         {
             if (_Nombre == null || _Direccion == null || _Telefono == null)
             {
-                return View(DB.MiCadeteria);
+                return View(Repo.getAll());
             }
             else
             {

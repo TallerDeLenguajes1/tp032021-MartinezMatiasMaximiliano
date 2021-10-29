@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model WebCadeteria.Entities.Cadeteria
+@model IEnumerable<WebCadeteria.Entities.Cadete>
 
 <div class="text-center">
     <h1 class="display-4">Lista de Cadetes</h1>
@@ -18,15 +18,15 @@
             <th scope="col">Modificar Cadete</th>
         </tr>
 
-        @foreach (var cadete in Model.ListaCadetes)
+        @foreach (var cadete in Model)
         {
             <tr>
                 <td>@cadete.Id</td>
                 <td>@cadete.Nombre</td>
                 <td>@cadete.Direccion</td>
                 <td>@cadete.Telefono</td>
-                <td>@cadete.ListaPedidos.Count()</td>
-                <td>$@cadete.Pago()</td>
+                <td></td>
+                <td></td>
 
                 <td>
                     <form asp-action="BajaCadete" asp-controller="Cadete" method="post">
@@ -46,7 +46,7 @@
                                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <h1 class="display-9">Modificar Cadete: @Model.Nombre</h1>
+                                    <h1 class="display-9">Modificar Cadete: </h1>
                                     <form asp-action="ModificarCadete" asp-controller="Cadete" method="post">
                                         <input type="hidden" value="@cadete.Id" id="_IdCadete" name="_IdCadete">
                                         <div class="mb-3">

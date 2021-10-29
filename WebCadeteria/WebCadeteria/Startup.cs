@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using WebCadeteria.Entities;
 using WebCadeteria.Helpers;
 using System.IO;
+using WebCadeteria.Models;
 
 namespace WebCadeteria
 {
@@ -29,6 +30,8 @@ namespace WebCadeteria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            RepositorioCadete Repo = new RepositorioCadete(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(Repo);
             services.AddControllersWithViews();
             services.AddSingleton(DB);
         }

@@ -15,15 +15,16 @@ namespace WebCadeteria.Controllers
     {
 
         private readonly DBTemporal DB;
-
-        public HomeController(DBTemporal dB)
+        private readonly RepositorioCadete Repo;
+        public HomeController(DBTemporal dB,RepositorioCadete repoCadetes)
         {
             DB = dB;
+            Repo = repoCadetes;
         }
 
         public IActionResult Index()
         {
-            return View(DB.MiCadeteria);
+            return View(Repo.getAll());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
