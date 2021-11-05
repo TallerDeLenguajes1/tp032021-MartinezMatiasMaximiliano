@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Cadeteria.Entities.Pedido>
+
+@{
+    ViewData["Title"] = "ListaPedidos";
+}
+
+<h1>ListaPedidos</h1>
+
+<p>
+    <a asp-action="Create">Lista Pedidos</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Obs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPedido)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Obs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPedido)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "ModificarPedido", new { ID=item.ID }) |
+                @Html.ActionLink("Borrar", "BajaPedido", new { ID = item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

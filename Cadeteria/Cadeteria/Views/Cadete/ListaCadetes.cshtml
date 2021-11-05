@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Cadeteria.Entities.Cadete>
+
+@{
+    ViewData["Title"] = "ListaCadetes";
+}
+
+<h1>Lista De Cadetes</h1>
+
+<p>
+    <a asp-action="AltaCadete" asp-controller="Cadete">Nuevo Cadete</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                Cantidad De Pedidos
+            </th>
+            <th>
+                Editar|Borrar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cadete in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => cadete.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cadete.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cadete.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cadete.Telefono)
+                </td>
+                <td>
+                    @cadete.PedidosDelCadete()
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "ModificarCadete", new { Id = cadete.Id }) |
+                    @Html.ActionLink("Borrar", "BajaCadete", new { Id = cadete.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeteria", "Cadeteria\Cadeteria.csproj", "{BC7E47E8-F852-4455-B401-0D0B79C2F736}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeteria", "Cadeteria\Cadeteria.csproj", "{598D98CC-1FF2-40DA-979C-343D79A42C45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC7E47E8-F852-4455-B401-0D0B79C2F736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC7E47E8-F852-4455-B401-0D0B79C2F736}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC7E47E8-F852-4455-B401-0D0B79C2F736}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC7E47E8-F852-4455-B401-0D0B79C2F736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598D98CC-1FF2-40DA-979C-343D79A42C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598D98CC-1FF2-40DA-979C-343D79A42C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598D98CC-1FF2-40DA-979C-343D79A42C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598D98CC-1FF2-40DA-979C-343D79A42C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F23B1943-10CC-4523-9611-0CA4F6B9F04B}
+		SolutionGuid = {FD9AE24B-FD26-4111-AF83-7E3775AA4FDF}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,8 @@
+﻿tareas:
+terminar CRUD de cadete
+CRUD de clientes
+CRUD de pedidos
+
+
+consultas:
+listacadetes.cs  {como hacer para que html.actionlink sea post en vez de get}
