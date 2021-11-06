@@ -6,56 +6,31 @@ using System.Threading.Tasks;
 namespace Cadeteria.Entities
 {
     public enum Estado { Entregado, EnProceso, Cancelado }
-    public enum TipoPedido { Express, Delicado, Ecologico }
 
     public class Pedido
     {
-        private static int costoFijo = 150;
-
         //atributos
         int iD;
         string obs;
-        Cliente clientePedido;
         Estado estadoPedido;
-        TipoPedido tipoEnvio;
+        Cliente clientePedido;
 
         public int ID { get => iD; set => iD = value; }
         public string Obs { get => obs; set => obs = value; }
-        public Cliente ClientePedido { get => clientePedido; set => clientePedido = value; }
         public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
+        public Cliente ClientePedido { get => clientePedido; set => clientePedido = value; }
 
         //constructores
         public Pedido() { }
 
-        public Pedido(string _Obs, Cliente _ClientePedido)
+        public Pedido(string _Obs,Cliente _ClientePedido, int _EstadoPedido)
         {
             this.obs = _Obs;
-            this.clientePedido = _ClientePedido;
+            this.ClientePedido = _ClientePedido;
+            this.EstadoPedido = (Estado)_EstadoPedido;
         }
-
-
-
-        //metodos
-        public float CalcularCosto(bool _Cupon)
-        {
-            float total = 0;
-            switch (this.tipoEnvio)
-            {
-                case TipoPedido.Express:
-                    total = (float)(costoFijo * 1.25);
-                    break;
-                case TipoPedido.Delicado:
-                    total = (float)(costoFijo * 1.30);
-                    break;
-                case TipoPedido.Ecologico:
-                    total = costoFijo;
-                    break;
-            }
-            if (_Cupon)
-            {
-                total -= (float)(total * 0.10);
-            }
-            return total;
-        }
+        //metodos       
     }
 }
+
+

@@ -7,7 +7,7 @@
 <h1>Lista De Cadetes</h1>
 
 <p>
-    <a asp-action="AltaCadete" asp-controller="Cadete">Nuevo Cadete</a>
+    <a asp-action="AltaCadete">Nuevo Cadete</a>
 </p>
 <table class="table">
     <thead>
@@ -49,7 +49,6 @@
                     @Html.DisplayFor(modelItem => cadete.Telefono)
                 </td>
                 <td>
-                    @cadete.PedidosDelCadete()
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "ModificarCadete", new { Id = cadete.Id }) |

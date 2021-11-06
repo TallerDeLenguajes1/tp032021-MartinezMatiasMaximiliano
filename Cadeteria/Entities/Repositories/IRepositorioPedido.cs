@@ -31,21 +31,40 @@ namespace Cadeteria.Entities
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = "SELECT * FROM Pedidos WHERE Activo = 1";
+                string SQLQuery = "SELECT * FROM Pedidos WHERE Activo = @estado";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    command.Parameters.AddWithValue("@estado", 1);
+                    using (SQLiteDataReader PedidoLeido = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                                
+                        while (PedidoLeido.Read())
                         {
                             Pedido Pedido = new Pedido()
                             {
-                                ID = Convert.ToInt32(reader["PedidoID"]),
-                                Obs = reader["observacionPedido"].ToString(),
-
+                                ID = Convert.ToInt32(PedidoLeido["PedidoID"]),
+                                Obs = PedidoLeido["observacionPedido"].ToString(),
+                                EstadoPedido = (Estado)Convert.ToInt32(PedidoLeido["estadoPedido"]),
+                                
                             };
+
+                            string QueryCliente = "SELECT * FROM clientes WHERE clienteID = @clienteID";
+                            using (SQLiteCommand command2 = new SQLiteCommand(QueryCliente, connection))
+                            {
+                                command2.Parameters.AddWithValue("@clienteID", PedidoLeido["clienteID"]);
+                                using(SQLiteDataReader ClienteLeido = command2.ExecuteReader())
+                                {
+                                    ClienteLeido.Read();
+                                    Pedido.ClientePedido = new Cliente()
+                                    {
+                                        Nombre = ClienteLeido["nombreCliente"].ToString(),
+                                        Direccion = ClienteLeido["direccionCliente"].ToString(),
+                                        Telefono = ClienteLeido["telefonoCliente"].ToString()
+                                    };
+                                }
+                            }
                             listaPedidos.Add(Pedido);
                         }
                     }
@@ -90,7 +109,6 @@ namespace Cadeteria.Entities
                 {
                     command.Parameters.AddWithValue("@observacionPedido", Pedido.Obs);
                     command.Parameters.AddWithValue("@estadoPedido", Pedido.EstadoPedido);
-                    command.Parameters.AddWithValue("@clienteID", Pedido.ClientePedido.Id);
                     command.Parameters.AddWithValue("@clienteID", ClienteID);
                     command.Parameters.AddWithValue("@cadeteID", CadeteID);
                     command.ExecuteNonQuery();

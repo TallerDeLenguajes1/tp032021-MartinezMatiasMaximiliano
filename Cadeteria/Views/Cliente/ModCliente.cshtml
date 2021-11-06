@@ -19,28 +19,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" placeholder="@Model.Nombre"/>
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
+                <input asp-for="Direccion" class="form-control" placeholder="@Model.Direccion"/>
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
+                <input asp-for="Telefono" class="form-control" placeholder="@Model.Telefono" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Enviar" class="btn btn-primary" />
+                <input type="submit" value="Modificar Cliente" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="ListaClientes">Back to List</a>
 </div>
 
 @section Scripts {

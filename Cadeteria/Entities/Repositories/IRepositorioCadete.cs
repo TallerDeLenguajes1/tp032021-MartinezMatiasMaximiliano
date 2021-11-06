@@ -88,13 +88,12 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"INSERT INTO Cadetes (nombreCadete,direccionCadete,telefonoCadete,vehiculoCadete) VALUES (@nombreCadete,@direccionCadete,@telefonoCadete,@vehiculoCadete);";
+                string SQLQuery = $"INSERT INTO Cadetes (nombreCadete,direccionCadete,telefonoCadete) VALUES (@nombreCadete,@direccionCadete,@telefonoCadete);";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
                     command.Parameters.AddWithValue("@nombreCadete", Cadete.Nombre);
                     command.Parameters.AddWithValue("@direccionCadete", Cadete.Direccion);
                     command.Parameters.AddWithValue("@telefonoCadete", Cadete.Telefono);
-                    command.Parameters.AddWithValue("@vehiculoCadete", Cadete.Vehiculo);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -146,6 +145,7 @@ namespace Cadeteria.Entities
                 connection.Close();
             }
         }
+
     }
 
 }

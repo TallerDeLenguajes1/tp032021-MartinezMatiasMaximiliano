@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cadeteria.Entities;
+using Cadeteria.ViewModels;
 
 namespace Cadeteria.Controllers
 {
@@ -24,7 +25,7 @@ namespace Cadeteria.Controllers
 
         public IActionResult AltaPedido()
         {
-            return View();
+            return View(new AltaPedidoViewModel(DB.RepositorioCadete.GetAllCadetes(),DB.RepositorioCliente.GetAllClientes()));
         }
 
         [HttpPost]
