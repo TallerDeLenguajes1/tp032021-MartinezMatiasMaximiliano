@@ -11,9 +11,9 @@ crear cliente y pedido en la misma view (problema: clientes repetidos idea: 2 co
 
 "Las voces en mi cabeza dicen que no estoy loco"<br>
 
-I've been losing my mind
-I've been falling way behind
-I'm a lost survivor, walking through fire
-But strength is giving away
+I've been losing my mind <br>
+I've been falling way behind<br>
+I'm a lost survivor, walking through fire<br>
+But strength is giving away<br>
 
 
