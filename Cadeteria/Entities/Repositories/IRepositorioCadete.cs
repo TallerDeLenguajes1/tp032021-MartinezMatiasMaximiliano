@@ -31,23 +31,65 @@ namespace Cadeteria.Entities
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = "SELECT * FROM Cadetes WHERE Activo = 1";
-
+                string SQLQueryCadetes = "SELECT * FROM Cadetes WHERE Activo = 1";
                 connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+
+                using (SQLiteCommand LeerCadetes = new SQLiteCommand(SQLQueryCadetes, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    using (SQLiteDataReader cadetesLeidos = LeerCadetes.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (cadetesLeidos.Read())
                         {
-                            Cadete cadeteleido = new Cadete()
+                            Cadete Cadete = new Cadete()
                             {
-                                Id = Convert.ToInt32(reader["CadeteID"]),
-                                Nombre = reader["nombreCadete"].ToString(),
-                                Direccion = reader["direccionCadete"].ToString(),
-                                Telefono = reader["telefonoCadete"].ToString()
+                                Id = Convert.ToInt32(cadetesLeidos["CadeteID"]),
+                                Nombre = cadetesLeidos["nombreCadete"].ToString(),
+                                Direccion = cadetesLeidos["direccionCadete"].ToString(),
+                                Telefono = cadetesLeidos["telefonoCadete"].ToString(),
+                                CadeteriaID = 1,
+                                ListaPedidos = new List<Pedido>()
                             };
-                            listaCadetes.Add(cadeteleido);
+
+
+                            string SQLQueryPedidos = "SELECT * FROM Pedidos WHERE cadeteID = @CadeteID";
+                            using (SQLiteCommand LeerPedidos = new SQLiteCommand(SQLQueryPedidos, connection))
+                            {
+                                LeerPedidos.Parameters.AddWithValue("@CadeteID", Cadete.Id);
+                                using (SQLiteDataReader PedidoDelCadete = LeerPedidos.ExecuteReader())
+                                {
+                                    while (PedidoDelCadete.Read())
+                                    {
+                                        Pedido Pedido = new Pedido()
+                                        {
+                                            ID = Convert.ToInt32(PedidoDelCadete["PedidoID"]),
+                                            Obs = PedidoDelCadete["observacionPedido"].ToString(),
+                                            EstadoPedido = (Estado)Convert.ToInt32(PedidoDelCadete["estadoPedido"])
+                                        };
+
+                                        string SQLQueryCliente = "SELECT * FROM clientes WHERE clienteID = @clienteID";
+                                        using (SQLiteCommand LeerCliente = new SQLiteCommand(SQLQueryCliente, connection))
+                                        {
+                                            LeerCliente.Parameters.AddWithValue("@clienteID", PedidoDelCadete["clienteID"]);
+                                            using (SQLiteDataReader ClienteLeido = LeerCliente.ExecuteReader())
+                                            {
+                                                ClienteLeido.Read();
+                                                Cliente Cliente = new Cliente()
+                                                {
+                                                    Id = Convert.ToInt32(ClienteLeido["clienteID"]),
+                                                    Nombre = ClienteLeido["nombreCliente"].ToString(),
+                                                    Direccion = ClienteLeido["direccionCliente"].ToString(),
+                                                    Telefono = ClienteLeido["telefonoCliente"].ToString()
+                                                };
+                                                Pedido.ClientePedido = Cliente;
+                                            }
+                                        }
+
+                                        Cadete.ListaPedidos.Add(Pedido);
+                                    }
+                                }
+                            }
+
+                            listaCadetes.Add(Cadete);
                         }
                     }
                 }

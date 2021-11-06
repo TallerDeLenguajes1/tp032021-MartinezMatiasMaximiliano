@@ -47,7 +47,6 @@ namespace Cadeteria.Entities
                                 ID = Convert.ToInt32(PedidoLeido["PedidoID"]),
                                 Obs = PedidoLeido["observacionPedido"].ToString(),
                                 EstadoPedido = (Estado)Convert.ToInt32(PedidoLeido["estadoPedido"]),
-                                
                             };
 
                             string QueryCliente = "SELECT * FROM clientes WHERE clienteID = @clienteID";

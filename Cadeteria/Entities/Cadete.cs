@@ -12,6 +12,7 @@ namespace Cadeteria.Entities
         List<Pedido> listaPedidos;
 
         public int CadeteriaID { get => cadeteriaID; set => cadeteriaID = value; }
+        public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
 
         //constructor
         public Cadete() { }
@@ -22,12 +23,21 @@ namespace Cadeteria.Entities
             this.Direccion = _Direccion;
             this.Telefono = _Telefono;
             this.CadeteriaID = 1;
+            this.ListaPedidos = new List<Pedido>();
         }
 
         //metodos
-        /*public int PedidosDelCadete()     
+        public int PedidosDelCadete()     
         {
-        }*/
+            if (listaPedidos != null)
+            {
+                return listaPedidos.Count();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
 //public void CambiarVehiculo(int _NuevoVehiculo) { this.vehiculo = (TipoVehiculo)_NuevoVehiculo; }
