@@ -11,15 +11,17 @@ namespace Cadeteria.Entities
         public IRepositorioCadete RepositorioCadete { get; set; }
         public IRepositorioCliente RepositorioCliente { get; set; }
         public IRepositorioPedido RepositorioPedido { get; set; }
+        public IRepositorioUsuario RepositorioUsuarios { get; set; }
 
         public DBSQLite(string _ConnectionString)
         {
             RepositorioCadete = new SQLiteCadete(_ConnectionString);
             RepositorioCliente = new SQLiteCliente(_ConnectionString);
             RepositorioPedido = new SQLitePedido(_ConnectionString);
-            
+            RepositorioUsuarios = new SQLiteUsuario(_ConnectionString);
+
         }
     }
 
- 
+
 }

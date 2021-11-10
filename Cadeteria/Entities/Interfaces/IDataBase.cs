@@ -10,5 +10,6 @@ namespace Cadeteria.Entities
         public IRepositorioCadete RepositorioCadete { get; set; }
         public IRepositorioCliente RepositorioCliente { get; set; }
         public IRepositorioPedido RepositorioPedido { get; set; }
+        public IRepositorioUsuario RepositorioUsuarios { get; set; }
     }
 }
