@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
+using Cadeteria.Entities;
 
 namespace Cadeteria.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IDB DB; 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IDB _DB)
         {
-            _logger = logger;
+            this.DB = _DB;
         }
 
         public IActionResult Index()
