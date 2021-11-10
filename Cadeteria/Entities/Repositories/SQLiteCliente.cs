@@ -6,16 +6,6 @@ using System.Data.SQLite;
 
 namespace Cadeteria.Entities
 {
-    public interface IRepositorioCliente
-    {
-        void BorrarCliente(int Id);
-        void DesactivarCliente(int Id);
-        List<Cliente> GetAllClientes();
-        Cliente GetClienteByID(int ID);
-        void ModificarCliente(Cliente Cliente);
-        void SaveCliente(Cliente Cliente);
-    }
-
     public class SQLiteCliente : IRepositorioCliente
     {
         private readonly string StringDeConexion;

@@ -24,7 +24,7 @@ namespace Cadeteria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IDB DB = new DBSQLite(Configuration.GetConnectionString("Default"));
+            IDataBase DB = new DBSQLite(Configuration.GetConnectionString("Default"));
             services.AddSingleton(DB);
             services.AddControllersWithViews();
             services.AddSession(options =>

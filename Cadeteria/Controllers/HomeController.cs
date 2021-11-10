@@ -14,9 +14,9 @@ namespace Cadeteria.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IDB DB; 
+        private readonly IDataBase DB; 
 
-        public HomeController(IDB _DB)
+        public HomeController(IDataBase _DB)
         {
             this.DB = _DB;
         }

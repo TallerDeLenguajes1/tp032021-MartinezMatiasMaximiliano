@@ -11,8 +11,8 @@ namespace Cadeteria.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IDB DB;
-        public LoginController(IDB _DB)
+        private readonly IDataBase DB;
+        public LoginController(IDataBase _DB)
         {
             this.DB = _DB;
         }
@@ -31,6 +31,7 @@ namespace Cadeteria.Controllers
 
             string Usu = HttpContext.Session.GetString("Usuario");
             string Pass = HttpContext.Session.GetString("Contra");
+
             if (Usu == "Admin" && Pass == "Admin")
             {
                 return View("../Cadete/ListaCadetes", DB.RepositorioCadete.GetAllCadetes());

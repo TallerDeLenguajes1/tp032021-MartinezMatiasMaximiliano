@@ -11,9 +11,9 @@ namespace Cadeteria.Controllers
 {
     public class CadeteController : Controller
     {
-        private readonly IDB DB;
+        private readonly IDataBase DB;
 
-        public CadeteController(IDB _DB)
+        public CadeteController(IDataBase _DB)
         {
             DB = _DB;
         }

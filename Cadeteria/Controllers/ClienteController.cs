@@ -10,9 +10,9 @@ namespace Cadeteria.Controllers
 {
     public class ClienteController : Controller
     {
-        private readonly IDB DB;
+        private readonly IDataBase DB;
 
-        public ClienteController(IDB _DB)
+        public ClienteController(IDataBase _DB)
         {
             DB = _DB;
         }

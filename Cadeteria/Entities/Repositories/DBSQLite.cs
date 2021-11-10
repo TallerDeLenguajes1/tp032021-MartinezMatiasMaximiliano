@@ -5,14 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cadeteria.Entities
 {
-    public interface IDB
-    {
-        public IRepositorioCadete RepositorioCadete { get; set; }
-        public IRepositorioCliente RepositorioCliente { get; set; }
-        public IRepositorioPedido RepositorioPedido { get; set; }
-    }
-
-    public class DBSQLite : IDB
+    public class DBSQLite : IDataBase
     {
 
         public IRepositorioCadete RepositorioCadete { get; set; }
