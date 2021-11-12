@@ -78,5 +78,10 @@ namespace Cadeteria.Controllers
                 return RedirectToAction(nameof(ListaPedidos));
             }
         }
+
+        public IActionResult SearchPedidos(string NombreCliente){
+            return View("../Pedido/ListaPedidos",DB.RepositorioPedido.GetAllPedidos(NombreCliente));
+        }
+
     }
 }

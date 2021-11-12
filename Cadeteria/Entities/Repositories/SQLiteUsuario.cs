@@ -62,7 +62,6 @@ namespace Cadeteria.Entities
             return success;
         }
 
-
         public bool DesactivarUsuario(int ID)
         {
             bool success = false;

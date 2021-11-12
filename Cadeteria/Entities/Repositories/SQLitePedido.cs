@@ -29,7 +29,7 @@ namespace Cadeteria.Entities
                     command.Parameters.AddWithValue("@estado", 1);
                     using (SQLiteDataReader PedidoLeido = command.ExecuteReader())
                     {
-                                
+
                         while (PedidoLeido.Read())
                         {
                             Pedido Pedido = new Pedido()
@@ -43,7 +43,7 @@ namespace Cadeteria.Entities
                             using (SQLiteCommand command2 = new SQLiteCommand(QueryCliente, connection))
                             {
                                 command2.Parameters.AddWithValue("@clienteID", PedidoLeido["clienteID"]);
-                                using(SQLiteDataReader ClienteLeido = command2.ExecuteReader())
+                                using (SQLiteDataReader ClienteLeido = command2.ExecuteReader())
                                 {
                                     ClienteLeido.Read();
                                     Pedido.ClientePedido = new Cliente()
@@ -135,5 +135,38 @@ namespace Cadeteria.Entities
         }
 
         public void ModificarPedido(Pedido Pedido) { }
+
+        public List<Pedido> GetAllPedidos(string NombreCliente)
+        {
+            List<Pedido> listaPedidos = new List<Pedido>();
+            using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
+            {
+                connection.Open();
+                string SQLQuery = "SELECT * FROM PedidosPorCliente WHERE nombreCliente = @nombreCliente";
+
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+                {
+                    command.Parameters.AddWithValue("nombreCliente", NombreCliente);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Pedido pedido = new Pedido()
+                            {
+                                ID = Convert.ToInt32(reader["clienteID"]),
+                                Obs = reader["observacion"].ToString(),
+                                EstadoPedido = (Estado)reader["estadoPedido"]
+                            };
+
+                            listaPedidos.Add(pedido);
+                        }
+                    }
+                }
+
+
+            }
+            return listaPedidos;
+        }
     }
 }

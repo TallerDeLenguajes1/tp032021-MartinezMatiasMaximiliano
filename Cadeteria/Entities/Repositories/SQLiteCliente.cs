@@ -21,7 +21,7 @@ namespace Cadeteria.Entities
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = "SELECT * FROM Clientes WHERE Activo = 1";
+                string SQLQuery = "SELECT ClienteID,nombreCliente,direccionCliente,telefonoCliente FROM Clientes WHERE Activo = 1";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
@@ -51,11 +51,12 @@ namespace Cadeteria.Entities
             Cliente ClienteLeido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = $"SELECT * FROM Clientes WHERE ClienteID = {ID}";
+                string SQLQuery = $"SELECT * FROM Clientes WHERE ClienteID = @ClienteID";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
+                    command.Parameters.AddWithValue("@ClienteID",ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         reader.Read();
@@ -123,7 +124,7 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"UPDATE Clientes SET nombreCliente = @nombreCliente, direccionCliente = @direccionCliente, telefonoCliente = @telefonoCliente WHERE ClienteID = @ClienteID;";
+                string SQLQuery = $"UPDATE Clientes SET nombreCliente = @nombreCliente, direccionCliente = @direccionCliente, telefonoCliente = @telefonoCliente WHERE clienteID = @ClienteID;";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
                     command.Parameters.AddWithValue("@ClienteID", Cliente.Id);

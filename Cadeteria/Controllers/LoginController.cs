@@ -30,14 +30,14 @@ namespace Cadeteria.Controllers
                 HttpContext.Session.SetString("Username", Username);
                 HttpContext.Session.SetString("Password", Password);
 
-                string Usu = HttpContext.Session.GetString("Username");
+                string User = HttpContext.Session.GetString("Username");
                 string Pass = HttpContext.Session.GetString("Password");
 
                 return View("../Cadete/ListaCadetes", DB.RepositorioCadete.GetAllCadetes());
             }
             else
             {
-                //vista de usuario incorrecto
+                //usuario no existe
                 return View();
             }
 

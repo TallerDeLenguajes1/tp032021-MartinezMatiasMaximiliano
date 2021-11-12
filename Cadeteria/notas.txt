@@ -1,8 +1,12 @@
 ﻿tareas:
-terminar CRUD de cadete
-CRUD de clientes
-CRUD de pedidos
+administrar views segun acceso del usuario
+
+revisar repositorios por sql inyection
 
 
-consultas:
-listacadetes.cs  {como hacer para que html.actionlink sea post en vez de get}
+view login {2 columnas/2 forms}
+    columna 1:login de admins
+    columna 2: busqueda por usuario
+
+    form1: da ingreso a todas las listas
+    form2: solo devuelve los pedidos con el nombre ingresado
