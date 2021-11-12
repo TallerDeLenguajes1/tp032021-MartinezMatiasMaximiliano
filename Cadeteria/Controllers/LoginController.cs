@@ -19,7 +19,7 @@ namespace Cadeteria.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            return View(true);
         }
 
         [HttpPost]
@@ -35,11 +35,9 @@ namespace Cadeteria.Controllers
 
                 return View("../Cadete/ListaCadetes", DB.RepositorioCadete.GetAllCadetes());
             }
-            else
-            {
-                //usuario no existe
-                return View();
-            }
+            
+                return View(false);
+           
 
         }
     }
