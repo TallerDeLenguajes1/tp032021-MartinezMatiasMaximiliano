@@ -1,87 +1,17 @@
-﻿@model bool
-@{
-    ViewData["Title"] = "Login";
-}
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-        <form asp-action="Login" asp-controller="Login" method="post" class="row g-3">
-            <h4>Ingreso de usuarios</h4>
-            <div class="col-12">
-                <label>Usuario</label>
-                <input type="text" name="username" class="form-control" placeholder="Usuario" required>
-            </div>
-            <div class="col-12">
-                <label>Contraseña</label>
-                <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-dark float-end">Login</button>
-                @if(!Model){
-                    <p>Usuario o Contraseña incorrectos</p>
-                }
-            </div>
-        </form>
-    <!-- Bootstrap JS -->
-    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-    </div>
-    <div class="col">
-        <form asp-action="SearchPedidos" asp-controller="Pedido" method="post" class="row g-3">
-            <h4>Busqueda de pedidos</h4>
-            <div class="col-12">
-                <label>Buscar Pedidos</label>
-                <input type="text" name="username" class="form-control" placeholder="Nombre del Cliente" required>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-dark float-end">Search</button>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
-
-<!--
-<h1>Cadeteria</h1>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="text-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 offset-md-4">
-                            <div class="login-form bg-light mt-4 p-4">
-                                <form asp-action="Login" asp-controller="Login" method="post" class="row g-3">
-                                    <h4>Ingreso de usuarios</h4>
-                                    <div class="col-12">
-                                        <label>Usuario</label>
-                                        <input type="text" name="username" class="form-control" placeholder="Usuario"
-                                            required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label>Contraseña</label>
-                                        <input type="password" name="password" class="form-control"
-                                            placeholder="Contraseña" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-dark float-end">Login</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-            </div>
-        </div>
-        <div class="col">
+﻿<div class="text-center">
+    <div class="container">
+        <div class="row">
             <div class="col-md-4 offset-md-4">
                 <div class="login-form bg-light mt-4 p-4">
-                    <form asp-action="BuscarPedidos" asp-controller="Login" method="post" class="row g-3">
-                        <h4>Busqueda de pedidos</h4>
+                    <form asp-action="Login" asp-controller="Login" method="post" class="row g-3">
+                        <h4>Ingreso de usuarios</h4>
                         <div class="col-12">
-                            <label>Nombre del cliente</label>
-                            <input type="text" name="username" class="form-control" placeholder="Nombre del cliente" required>
+                            <label>Usuario</label>
+                            <input type="text" name="username" class="form-control" placeholder="Usuario" required>
+                        </div>
+                        <div class="col-12">
+                            <label>Contraseña</label>
+                            <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-dark float-end">Login</button>
@@ -91,5 +21,43 @@
             </div>
         </div>
     </div>
+ Bootstrap JS 
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 </div>
--->
+
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!------ Include the above in your HEAD tag ---------->
+
+@*<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="text" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="text-info">Register here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>*@
