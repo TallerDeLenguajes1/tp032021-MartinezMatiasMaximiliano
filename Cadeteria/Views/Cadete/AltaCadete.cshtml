@@ -1,15 +1,12 @@
 ﻿@model Cadeteria.Entities.Cadete
 @{
-    ViewData["Title"] = "AltaCadete";
+    ViewData["Title"] = "Nuevo Cadete";
 }
-
-<h1>Create</h1>
-
-<h4>Cadete</h4>
+<h1>Nuevo Cadete</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CargarCadete">
+        <form asp-action="AltaCadete" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -29,15 +26,12 @@
             <div class="form-group">
                 <input type="submit" value="Crear Cadete" class="btn btn-primary" />
             </div>
-
+            <div>
+                <a asp-action="ListaCadetes" asp-controller="Cadete">Lista de Cadetes</a>
+            </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="ListaCadetes">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

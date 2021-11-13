@@ -29,7 +29,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CargarCliente(Cliente Cliente)
+        public IActionResult AltaCliente(Cliente Cliente)
         {
             try
             {

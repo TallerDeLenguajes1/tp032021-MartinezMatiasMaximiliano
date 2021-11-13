@@ -30,7 +30,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CargarPedido(Pedido Pedido,int CadeteID, int ClienteID)
+        public IActionResult AltaPedido(Pedido Pedido,int CadeteID, int ClienteID)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Cadeteria.Controllers
             try
             {
                 DB.RepositorioPedido.ModificarPedido(Pedido);
-                return RedirectToAction(nameof(Index));
+                return Redirect("../Login/Login");
             }
             catch (Exception e)
             {

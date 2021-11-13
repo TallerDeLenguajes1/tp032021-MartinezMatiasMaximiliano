@@ -30,7 +30,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CargarCadete(Cadete Cadete)
+        public IActionResult AltaCadete(Cadete Cadete)
         {
             try
             {

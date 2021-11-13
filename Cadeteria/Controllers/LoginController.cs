@@ -25,19 +25,16 @@ namespace Cadeteria.Controllers
         [HttpPost]
         public IActionResult Login(string Username, string Password)
         {
-            if (DB.RepositorioUsuarios.UsuarioExiste(Username,Password))
+            if (DB.RepositorioUsuarios.UsuarioExiste(Username, Password))
             {
+                
                 HttpContext.Session.SetString("Username", Username);
                 HttpContext.Session.SetString("Password", Password);
 
-                string User = HttpContext.Session.GetString("Username");
-                string Pass = HttpContext.Session.GetString("Password");
-
-                return View("../Cadete/ListaCadetes", DB.RepositorioCadete.GetAllCadetes());
+                return View("../Home/Index", DB.RepositorioCadete.GetAllCadetes());
             }
-            
-                return View(false);
-           
+            return View(false);
+
 
         }
     }

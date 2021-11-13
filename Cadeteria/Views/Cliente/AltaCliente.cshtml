@@ -1,16 +1,14 @@
 ﻿@model Cadeteria.Entities.Cliente
 
 @{
-    ViewData["Title"] = "AltaCliente";
+    ViewData["Title"] = "Nuevo Cliente";
 }
 
-<h1>AltaCliente</h1>
-
-<h4>Cliente</h4>
+<h1>Nuevo Cliente</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CargarCliente">
+        <form asp-action="AltaCliente" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div hidden>
                 <label asp-for="Id" class="control-label"></label>
@@ -38,11 +36,6 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="ListaClientes">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

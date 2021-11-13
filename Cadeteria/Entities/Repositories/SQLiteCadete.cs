@@ -78,7 +78,6 @@ namespace Cadeteria.Entities
                                     }
                                 }
                             }
-
                             listaCadetes.Add(Cadete);
                         }
                     }
@@ -93,11 +92,12 @@ namespace Cadeteria.Entities
             Cadete CadeteLeido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = $"SELECT * FROM Cadetes WHERE CadeteID = {ID}";
+                string SQLQuery = $"SELECT * FROM Cadetes WHERE CadeteID = @CadeteID";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
+                    command.Parameters.AddWithValue("@CadeteID",ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         reader.Read();
