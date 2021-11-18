@@ -11,6 +11,7 @@ namespace Cadeteria.Entities
         Cadete = 1,
         Cliente = 0
     }
+
     public class Usuario
     {
         int iD;
@@ -21,6 +22,6 @@ namespace Cadeteria.Entities
         public int ID { get => iD; set => iD = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
-        public Rol Rol { get => rol; set => rol = value; }       
+        public Rol Rol { get => rol; set => rol = value; }
     }
 }

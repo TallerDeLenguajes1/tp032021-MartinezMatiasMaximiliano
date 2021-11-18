@@ -20,12 +20,34 @@ namespace Cadeteria.Controllers
 
         public IActionResult ListaCadetes()
         {
-            return View(DB.RepositorioCadete.GetAllCadetes());
+            try
+            {
+                if (true) //CORREGIR rol admin
+                {
+                    return View(DB.RepositorioCadete.GetAllCadetes());
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                return View("../Login/Login");
+            }
         }
-                
+
         public IActionResult AltaCadete()
         {
-            return View();
+            try
+            {
+                if (true) //CORREGIR rol admin
+                {
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                return View("../Login/Login");
+            }
         }
 
         [HttpPost]
@@ -34,44 +56,64 @@ namespace Cadeteria.Controllers
         {
             try
             {
+                if (true) //CORREGIR rol admin
+                {
                 DB.RepositorioCadete.SaveCadete(Cadete);
                 return RedirectToAction(nameof(ListaCadetes));
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 string error = e.Message;
-                return RedirectToAction(nameof(ListaCadetes));
+                return View("../Login/Login");
             }
         }
 
-        public IActionResult BajaCadete(int id)
+        public IActionResult BajaCadete(int ID)
         {
             try
             {
-                DB.RepositorioCadete.DesactivarCadete(id);
+                if (true) //CORREGIR rol admin
+                {
+                  
+                DB.RepositorioCadete.DesactivarCadete(ID);
                 return RedirectToAction(nameof(ListaCadetes));
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return RedirectToAction(nameof(ListaCadetes));
+                string error = e.Message;
+                return View("../Login/Login");
             }
         }
 
-        public IActionResult ModificarCadete(int id)
+        public IActionResult ModificarCadete(int ID)
         {
-            return View("../Cadete/ModCadete",DB.RepositorioCadete.GetCadeteById(id));
+            try
+            {
+                if (true) //CORREGIR rol admin
+                {
+                    return View("../Cadete/ModCadete",DB.RepositorioCadete.GetCadeteByID(ID));
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                return View("../Login/Login");
+            }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditarCadete(Cadete Cadete)
+        public IActionResult ModificarCadete(Cadete Cadete)
         {
             try
             {
                 DB.RepositorioCadete.EditarCadete(Cadete);
                 return RedirectToAction(nameof(ListaCadetes));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 string error = e.Message;
                 return RedirectToAction(nameof(ListaCadetes));

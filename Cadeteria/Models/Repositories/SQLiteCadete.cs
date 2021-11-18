@@ -36,7 +36,6 @@ namespace Cadeteria.Entities
                                 Nombre = cadetesLeidos["nombreCadete"].ToString(),
                                 Direccion = cadetesLeidos["direccionCadete"].ToString(),
                                 Telefono = cadetesLeidos["telefonoCadete"].ToString(),
-                                CadeteriaID = 1,
                                 ListaPedidos = new List<Pedido>()
                             };
 
@@ -87,7 +86,7 @@ namespace Cadeteria.Entities
             return listaCadetes;
         }
 
-        public Cadete GetCadeteById(int ID)
+        public Cadete GetCadeteByID(int ID)
         {
             Cadete CadeteLeido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))

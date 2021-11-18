@@ -11,7 +11,7 @@ namespace Cadeteria.Entities
         void DesactivarCadete(int Id);
         void EditarCadete(Cadete Cadete);
         List<Cadete> GetAllCadetes();
-        Cadete GetCadeteById(int ID);
+        Cadete GetCadeteByID(int ID);
         void SaveCadete(Cadete Cadete);
     }
 }

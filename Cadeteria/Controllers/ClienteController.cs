@@ -19,12 +19,35 @@ namespace Cadeteria.Controllers
 
         public IActionResult ListaClientes()
         {
-            return View(DB.RepositorioCliente.GetAllClientes());
+            try
+            {
+                if (true) //CORREGIR rol admin
+                {
+                    return View(DB.RepositorioCliente.GetAllClientes());
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                return View("../Login/Login");
+            }
         }
 
         public IActionResult AltaCliente()
         {
-            return View(nameof(AltaCliente));
+            try
+            {
+                if (true) //CORREGIR rol admin y cadete
+                {
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                return View("../Login/Login");
+            }
+            
         }
 
         [HttpPost]

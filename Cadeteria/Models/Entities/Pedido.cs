@@ -9,18 +9,12 @@ namespace Cadeteria.Entities
 
     public class Pedido
     {
-        //atributos
         int iD;
         string obs;
         Estado estadoPedido;
         Cliente clientePedido;
 
-        public int ID { get => iD; set => iD = value; }
-        public string Obs { get => obs; set => obs = value; }
-        public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
-        public Cliente ClientePedido { get => clientePedido; set => clientePedido = value; }
 
-        //constructores
         public Pedido() { }
 
         public Pedido(string _Obs,Cliente _ClientePedido, int _EstadoPedido)
@@ -29,7 +23,13 @@ namespace Cadeteria.Entities
             this.ClientePedido = _ClientePedido;
             this.EstadoPedido = (Estado)_EstadoPedido;
         }
-        //metodos       
+        
+
+
+        public int ID { get => iD; set => iD = value; }
+        public string Obs { get => obs; set => obs = value; }
+        public Estado EstadoPedido { get => estadoPedido; set => estadoPedido = value; }
+        public Cliente ClientePedido { get => clientePedido; set => clientePedido = value; }
     }
 }
 

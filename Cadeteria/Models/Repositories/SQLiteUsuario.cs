@@ -15,9 +15,9 @@ namespace Cadeteria.Entities
             this.StringDeConexion = ConnectionString;
         }
 
-        public bool UsuarioExiste(string Username, string Password)
+        public Usuario ValidarUsuario(string Username,string Password)
         {
-            bool exists = false;
+            Usuario validado;
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
@@ -31,15 +31,21 @@ namespace Cadeteria.Entities
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        exists = reader.HasRows;
+                        reader.Read();
+                        validado = new Usuario()
+                        {
+                            ID = Convert.ToInt32(reader["IDusuario"]),
+                            Username = reader["Username"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Rol = (Rol)Convert.ToInt32(reader["TipoUsuario"])
+                        };
                     }
+                    connection.Close();
                 }
-                connection.Close();
+                return validado;
             }
-            return exists;
         }
-
-        public bool AltaUsuario(string Username, string Password)
+        public bool SaveUsuario(Usuario Usuario)
         {
             bool success = false;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
@@ -48,8 +54,8 @@ namespace Cadeteria.Entities
                 string SQLQuery = "INSERT INTO Usuarios (Username,Password) VALUES (@Username,@Password)";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@Username", Username);
-                    command.Parameters.AddWithValue("@Password", Password);
+                    command.Parameters.AddWithValue("@Username", Usuario.Username);
+                    command.Parameters.AddWithValue("@Password", Usuario.Password);
                     int AffectedRows = command.ExecuteNonQuery();
 
                     if (AffectedRows != 0)
