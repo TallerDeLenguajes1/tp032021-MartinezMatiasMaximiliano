@@ -1,4 +1,6 @@
-﻿using Cadeteria.Entities;
+﻿using AutoMapper;
+using Cadeteria.Entities;
+using Cadeteria.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -12,10 +14,12 @@ namespace Cadeteria.Controllers
     public class LoginController : BaseController
     {
         private readonly IDataBase DB;
+        private readonly IMapper mapper;
 
-        public LoginController(IDataBase _DB)
+        public LoginController(IDataBase _DB, IMapper mapper)
         {
             this.DB = _DB;
+            this.mapper = mapper;
         }
 
         public IActionResult Login()
@@ -24,29 +28,24 @@ namespace Cadeteria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string Username, string Password)
+        public IActionResult Login(Usuario Usuario)
         {
             try
             {
-                Usuario Usuario = DB.RepositorioUsuarios.ValidarUsuario(Username, Password);
-                if (Usuario != null)
+
+                if (DB.RepositorioUsuarios.ValidarUsuario(Usuario))
                 {
-                    switch (Usuario.Rol)
+                    Usuario SesionLogueada = DB.RepositorioUsuarios.GetUsuario(Usuario);
+                    CrearSesion(SesionLogueada);
+
+                    switch ((Rol)GetRol())
                     {
                         case Rol.Admin:
-                            HttpContext.Session.SetString("Username", Usuario.Username);
-                            HttpContext.Session.SetString("Password", Usuario.Password);
-
                             return View("../Admin/AdminPage");
                         case Rol.Cadete:
-                            HttpContext.Session.SetString("Username", Usuario.Username);
-                            HttpContext.Session.SetString("Password", Usuario.Password);
-
-                            return View("../Cadete/InfoCadete", DB.RepositorioCadete.GetCadeteByID(Usuario.ID)); ;
+                            Cadete Cadete = DB.RepositorioCadete.GetCadeteByID(GetIdUsuario());
+                            return View("../Cadete/InfoCadete", new CadeteInfoViewModel(DB.RepositorioCadete.GetCadeteByID(GetIdUsuario()),DB.RepositorioPedido.GetAllPedidosDeCadete(Cadete.Id))); ;
                         case Rol.Cliente:
-                            HttpContext.Session.SetString("Username", Usuario.Username);
-                            HttpContext.Session.SetString("Password", Usuario.Password);
-
                             return View("../Cliente/InfoCliente", DB.RepositorioCliente.GetClienteByID(Usuario.ID));
                         default:
                             return View();
@@ -79,11 +78,27 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AltaUsuario(Usuario Usuario)
+        public IActionResult AltaUsuario(UsuarioAltaViewModel usuarioVM)
         {
             try
             {
-                DB.RepositorioUsuarios.SaveUsuario(Usuario);
+                Usuario nuevo = mapper.Map<UsuarioAltaViewModel, Usuario>(usuarioVM);
+
+                switch (nuevo.Rol)
+                {
+                    case Rol.Cadete:
+                        if (DB.RepositorioUsuarios.SaveUsuario(nuevo))
+                        {
+                            Cadete cadete = mapper.Map<UsuarioAltaViewModel, Cadete>(usuarioVM);
+                            cadete.UsuarioID = DB.RepositorioUsuarios.GetIDUsuario(nuevo);
+                            DB.RepositorioCadete.SaveCadete(cadete);
+                        }
+                        break;
+                    case Rol.Cliente:
+                    default:
+                        break;
+                }
+
                 return View(nameof(Login));
             }
             catch (Exception e)
@@ -92,6 +107,13 @@ namespace Cadeteria.Controllers
                 return View(nameof(Login));
             }
         }
+
+        public IActionResult Desconectar()
+        {
+            CerrarSesion();
+            return View(nameof(Login));
+        }
+
         
         public IActionResult BajaUsuario()
         {

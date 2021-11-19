@@ -1,4 +1,4 @@
-﻿@model Cadeteria.Entities.Usuario
+﻿@model Cadeteria.ViewModels.UsuarioAltaViewModel
 
 @{
     ViewData["Title"] = "Crear Usuario";
@@ -6,20 +6,47 @@
 
 <h1>Nuevo Usuario</h1>
 
-<h4>Usuario</h4>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AltaUsuario" asp-controller="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
+                <label asp-for="Username" class="control-label">Nombre de Usuario:</label>
                 <input asp-for="Username" class="form-control" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">Contraseña:</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RePassword" class="control-label">Reingrese Contraseña</label>
+                <input asp-for="RePassword" class="form-control" />
+                <span asp-validation-for="RePassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label">Nombre completo:</label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label">Direccion:</label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label">Telefono:</label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rol" class="control-label">Se registra como:</label>
+                <select asp-for="Rol">
+                    <option value="0">Cliente</option>
+                    <option value="1">Cadete</option>
+                </select>
+                <span asp-validation-for="Rol" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Crear Usuario" class="btn btn-primary" />

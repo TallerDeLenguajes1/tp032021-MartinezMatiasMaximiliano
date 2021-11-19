@@ -22,9 +22,13 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) 
                 {
-                    return View(DB.RepositorioCadete.GetAllCadetes());
+                    return View(new ListaCadetesViewModel(DB.RepositorioCadete.GetAllCadetes()));
+                }
+                else
+                {
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)

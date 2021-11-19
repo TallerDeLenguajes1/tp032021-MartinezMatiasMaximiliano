@@ -7,8 +7,10 @@ namespace Cadeteria.Entities
 {
     public interface IRepositorioUsuario
     {
-        Usuario ValidarUsuario(string Username,string Password);
+        bool ValidarUsuario(Usuario Usuario);
         bool SaveUsuario(Usuario Usuario);
+        Usuario GetUsuario(Usuario Usuario);
+        int GetIDUsuario(Usuario Usuario);
         bool DesactivarUsuario(int ID);
         bool BorrarUsuario(int ID);
         void ModificarUsuario();

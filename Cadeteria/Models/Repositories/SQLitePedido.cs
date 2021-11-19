@@ -63,6 +63,54 @@ namespace Cadeteria.Entities
             return listaPedidos;
         }
 
+        public List<Pedido> GetAllPedidosDeCadete(int ID)
+        {
+            List<Pedido> listaPedidos = new List<Pedido>();
+
+            using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
+            {
+                string SQLQuery = "SELECT * FROM Pedidos WHERE activo = @activo AND cadeteID = @CadeteID" ;
+
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@activo", 1);
+                    command.Parameters.AddWithValue("@CadeteID", ID);
+                    using (SQLiteDataReader PedidoLeido = command.ExecuteReader())
+                    {
+                        while (PedidoLeido.Read())
+                        {
+                            Pedido Pedido = new Pedido()
+                            {
+                                ID = Convert.ToInt32(PedidoLeido["pedidoID"]),
+                                Obs = PedidoLeido["obs"].ToString(),
+                                EstadoPedido = (Estado)Convert.ToInt32(PedidoLeido["estado"]),
+                            };
+
+                            string QueryCliente = "SELECT * FROM Clientes WHERE clienteID = @clienteID";
+                            using (SQLiteCommand command2 = new SQLiteCommand(QueryCliente, connection))
+                            {
+                                command2.Parameters.AddWithValue("@clienteID", Convert.ToInt32(PedidoLeido["clienteID"]));
+                                using (SQLiteDataReader ClienteLeido = command2.ExecuteReader())
+                                {
+                                    ClienteLeido.Read();
+                                    Pedido.ClientePedido = new Cliente()
+                                    {
+                                        Nombre = ClienteLeido["nombre"].ToString(),
+                                        Direccion = ClienteLeido["direccion"].ToString(),
+                                        Telefono = ClienteLeido["telefono"].ToString()
+                                    };
+                                }
+                            }
+                            listaPedidos.Add(Pedido);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return listaPedidos;
+        }
+
         public Pedido GetPedidoByID(int ID)
         {
             Pedido Pedido = null;

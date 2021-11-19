@@ -1,4 +1,5 @@
 using Cadeteria.Entities;
+using Cadeteria.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace Cadeteria
             IDataBase DB = new DBSQLite(Configuration.GetConnectionString("Default"));
             services.AddSingleton(DB);
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(PerfilDeMapeo));
             services.AddSession(options =>
             {
                 

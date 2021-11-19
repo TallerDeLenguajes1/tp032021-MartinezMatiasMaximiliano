@@ -11,7 +11,7 @@ namespace Cadeteria.Controllers
 {
     public class BaseController : Controller
     {
-        internal void SetSesion(Usuario Usuario)
+        public void CrearSesion(Usuario Usuario)
         {
             if (!IsSesionIniciada())
             {
@@ -25,12 +25,12 @@ namespace Cadeteria.Controllers
             }
         }
 
-        internal bool IsSesionIniciada()
+        public bool IsSesionIniciada()
         {
             return (HttpContext.Session.GetString("Username") != null);
         }
 
-        internal int GetRol()
+        public int GetRol()
         {
             int rol = 0;
             if (IsSesionIniciada())
@@ -43,21 +43,26 @@ namespace Cadeteria.Controllers
             }
             return rol;
         }
-        internal string GetUser()
+        
+        public string GetUser()
         {
             return HttpContext.Session.GetString("Username");
         }
-        protected string GetPass()
+        
+        public string GetPass()
         {
             return HttpContext.Session.GetString("Password");
         }
-        internal int GetIdUsuario()
+        
+        public int GetIdUsuario()
         {
             return (int)HttpContext.Session.GetInt32("UserID");
         }
-        internal void Logout()
+        
+        public void CerrarSesion()
         {
             HttpContext.Session.Remove("Username");
+            HttpContext.Session.Remove("Password");
             HttpContext.Session.Remove("Rol");
             HttpContext.Session.Remove("UserID");
             HttpContext.Session.Clear();

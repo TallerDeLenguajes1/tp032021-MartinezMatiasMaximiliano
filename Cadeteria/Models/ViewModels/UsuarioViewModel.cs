@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cadeteria.Models.ViewModels
+namespace Cadeteria.ViewModels
 {
     public class UsuarioViewModel
     {
@@ -28,5 +28,8 @@ namespace Cadeteria.Models.ViewModels
         public string Direccion { get; set; }
         [Required]
         public string Telefono { get; set; }
+
+        [Required]
+        public int Rol { get; set; }
     }
 }

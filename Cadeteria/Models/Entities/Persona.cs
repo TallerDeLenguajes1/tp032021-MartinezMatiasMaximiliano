@@ -9,6 +9,7 @@ namespace Cadeteria.Entities
     {
         //atributos
         int id;
+        int usuarioID;
         string nombre;
         string direccion;
         string telefono;
@@ -17,5 +18,6 @@ namespace Cadeteria.Entities
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
+        public int UsuarioID { get => usuarioID; set => usuarioID = value; }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model Cadeteria.ViewModels.CadeteInfoViewModel
+
+@{
+    ViewData["Title"] = "InfoCadete";
+}
+
+<h1>Cadete: @Model.Cadete.Nombre</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID Pedido
+            </th>
+            <th>
+                Observaciones
+            </th>
+            <th>
+                Estado del Pedido
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Direccion
+            </th>
+            <th>
+                Telefono
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.listaPedidos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Obs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientePedido.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientePedido.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientePedido.Telefono)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
