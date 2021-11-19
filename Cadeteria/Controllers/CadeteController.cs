@@ -6,16 +6,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Cadeteria.Controllers
 {
     public class CadeteController : BaseController
     {
         private readonly IDataBase DB;
+        private readonly IMapper mapper;
 
-        public CadeteController(IDataBase _DB)
+        public CadeteController(IDataBase _DB, IMapper _mapper)
         {
             DB = _DB;
+            mapper = _mapper;
+
         }
 
         public IActionResult ListaCadetes()
@@ -24,7 +28,11 @@ namespace Cadeteria.Controllers
             {
                 if (IsSesionIniciada() && GetRol() == 2) //solo admin
                 {
-                    return View(new ListaCadetesViewModel(DB.RepositorioCadete.GetAllCadetes()));
+                    ListaCadetesViewModel listaCadetesViewModel  = new ListaCadetesViewModel(){
+                        listacadetes = mapper.Map<List<Cadete>,List<CadeteViewModel>>(DB.RepositorioCadete.GetAllCadetes())
+                    };
+                    
+                    return View();
                 }
                 else
                 {
