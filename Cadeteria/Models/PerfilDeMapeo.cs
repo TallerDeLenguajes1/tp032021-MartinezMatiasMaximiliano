@@ -14,6 +14,7 @@ namespace Cadeteria.Models
         {
             CreateMap<UsuarioAltaViewModel, Usuario>().ReverseMap();
             CreateMap<UsuarioAltaViewModel, Cadete>().ReverseMap();
+            CreateMap<Cliente,ClienteViewModel>().ReverseMap();
         }
     }
 }

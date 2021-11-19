@@ -5,16 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cadeteria.Entities;
+using Cadeteria.ViewModels;
+using AutoMapper;
 
 namespace Cadeteria.Controllers
 {
     public class ClienteController : BaseController
     {
         private readonly IDataBase DB;
+        private readonly IMapper mapper;
 
-        public ClienteController(IDataBase _DB)
+        public ClienteController(IDataBase _DB,IMapper _mapper)
         {
             DB = _DB;
+            mapper = _mapper;
         }
 
         public IActionResult ListaClientes() //solo admin
@@ -80,9 +84,11 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult ModificarCliente(int id) //admin y cliente
+        public IActionResult EditarCliente(int ID) //admin y cliente
         {
-            return View("../Cliente/ModCliente", DB.RepositorioCliente.GetClienteByID(id));
+            Cliente cliente = DB.RepositorioCliente.GetClienteByID(ID);
+            ClienteViewModel ClienteVM = mapper.Map<Cliente,ClienteViewModel>(cliente);
+            return View("../Cliente/ModCliente", clienteVM);
         }
 
         [HttpPost]
