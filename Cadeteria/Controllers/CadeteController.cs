@@ -22,7 +22,7 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (IsSesionIniciada() && GetRol() == 2) 
+                if (IsSesionIniciada() && GetRol() == 2) //solo admin
                 {
                     return View(new ListaCadetesViewModel(DB.RepositorioCadete.GetAllCadetes()));
                 }
@@ -42,9 +42,11 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) //admin y cadete
                 {
                     return View();
+                }else{
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)
@@ -60,10 +62,12 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) // admin y cadete
                 {
                 DB.RepositorioCadete.SaveCadete(Cadete);
                 return RedirectToAction(nameof(ListaCadetes));
+                }else{
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)
@@ -77,11 +81,13 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) //solo admin
                 {
                   
                 DB.RepositorioCadete.DesactivarCadete(ID);
                 return RedirectToAction(nameof(ListaCadetes));
+                }else{
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)
@@ -95,9 +101,11 @@ namespace Cadeteria.Controllers
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) //solo admin
                 {
                     return View("../Cadete/ModCadete",DB.RepositorioCadete.GetCadeteByID(ID));
+                }else{
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)
@@ -110,7 +118,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ModificarCadete(Cadete Cadete)
+        public IActionResult ModificarCadete(Cadete Cadete) //solo admin
         {
             try
             {

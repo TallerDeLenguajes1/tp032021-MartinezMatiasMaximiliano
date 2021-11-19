@@ -51,21 +51,22 @@ namespace Cadeteria.Entities
             Cliente ClienteLeido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = $"SELECT * FROM Clientes WHERE usuarioID = @usuarioID";
+                string SQLQuery = $"SELECT * FROM Clientes WHERE clienteID = @clienteID";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@usuarioID",ID);
+                    command.Parameters.AddWithValue("@clienteID",ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         reader.Read();
                         ClienteLeido = new Cliente()
                         {
-                            Id = Convert.ToInt32(reader["ClienteID"]),
-                            Nombre = reader["nombreCliente"].ToString(),
-                            Direccion = reader["direccionCliente"].ToString(),
-                            Telefono = reader["telefonoCliente"].ToString()
+                            Id = Convert.ToInt32(reader["clienteID"]),
+                            UsuarioID = Convert.ToInt32(reader["usuarioID"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Direccion = reader["direccion"].ToString(),
+                            Telefono = reader["telefono"].ToString()
                         };
                     }
                 }
@@ -79,13 +80,12 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"INSERT INTO Clientes (nombre,direccion,telefono,usuarioID) VALUES (@nombreCliente,@direccionCliente,@telefonoCliente,@usuarioID)";
+                string SQLQuery = $"INSERT INTO Clientes (nombre,direccion,telefono) VALUES (@nombreCliente,@direccionCliente,@telefonoCliente)";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
                     command.Parameters.AddWithValue("@nombreCliente", Cliente.Nombre);
                     command.Parameters.AddWithValue("@direccionCliente", Cliente.Direccion);
                     command.Parameters.AddWithValue("@telefonoCliente", Cliente.Telefono);
-                    command.Parameters.AddWithValue("@usuarioID", Cliente.UsuarioID);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -97,10 +97,10 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"UPDATE Clientes set Activo = 0 where usuarioID = @usuarioID";
+                string SQLQuery = $"UPDATE Clientes SET activo = 0 WHERE clienteID = @clienteID";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@usuarioID", Id);
+                    command.Parameters.AddWithValue("@clienteID", Id);
                     int AffectedRows = command.ExecuteNonQuery();
                 }
                 connection.Close();

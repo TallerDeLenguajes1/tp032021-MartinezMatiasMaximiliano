@@ -28,11 +28,10 @@ namespace Cadeteria.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Usuario Usuario)
+        public IActionResult Login(Usuario Usuario) //todos
         {
             try
             {
-
                 if (DB.RepositorioUsuarios.ValidarUsuario(Usuario))
                 {
                     Usuario SesionLogueada = DB.RepositorioUsuarios.GetUsuario(Usuario);
@@ -43,10 +42,12 @@ namespace Cadeteria.Controllers
                         case Rol.Admin:
                             return View("../Admin/AdminPage");
                         case Rol.Cadete:
-                            Cadete Cadete = DB.RepositorioCadete.GetCadeteByID(GetIdUsuario());
-                            return View("../Cadete/InfoCadete", new CadeteInfoViewModel(DB.RepositorioCadete.GetCadeteByID(GetIdUsuario()),DB.RepositorioPedido.GetAllPedidosDeCadete(Cadete.Id))); ;
+
+                            int cadeteID = DB.RepositorioCadete.GetCadeteID(GetIdUsuario());
+                            return View("../Cadete/InfoCadete", new CadeteInfoViewModel(DB.RepositorioCadete.GetCadeteByID(cadeteID),DB.RepositorioPedido.GetAllPedidosDeCadete(cadeteID))); ;
                         case Rol.Cliente:
-                            return View("../Cliente/InfoCliente", DB.RepositorioCliente.GetClienteByID(Usuario.ID));
+
+                            //return View("../Cliente/InfoCliente", DB.RepositorioCliente.GetClienteByID(Usuario.ID));
                         default:
                             return View();
                     }
@@ -63,7 +64,7 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult AltaUsuario()
+        public IActionResult AltaUsuario() //todos
         {
             try
             {
@@ -78,7 +79,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AltaUsuario(UsuarioAltaViewModel usuarioVM)
+        public IActionResult AltaUsuario(UsuarioAltaViewModel usuarioVM) //todos
         {
             try
             {
@@ -108,14 +109,14 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult Desconectar()
+        public IActionResult Desconectar() //todos
         {
             CerrarSesion();
             return View(nameof(Login));
         }
 
         
-        public IActionResult BajaUsuario()
+        public IActionResult BajaUsuario() //todos
         {
             try
             {
@@ -128,7 +129,7 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult BajaUsuario(Usuario Usuario)
+        public IActionResult BajaUsuario(Usuario Usuario) //todos
         {
             try
             {

@@ -17,13 +17,15 @@ namespace Cadeteria.Controllers
             DB = _DB;
         }
 
-        public IActionResult ListaClientes()
+        public IActionResult ListaClientes() //solo admin
         {
             try
             {
-                if (true) //CORREGIR rol admin
+                if (IsSesionIniciada() && GetRol() == 2) //CORREGIR rol admin
                 {
                     return View(DB.RepositorioCliente.GetAllClientes());
+                }else{
+                    return View("../Login/Login");
                 }
             }
             catch (Exception e)
@@ -33,11 +35,11 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult AltaCliente()
+        public IActionResult AltaCliente() 
         {
             try
             {
-                if (true) //CORREGIR rol admin y cadete
+                if (true) //CORREGIR rol?
                 {
                     return View();
                 }
@@ -52,7 +54,7 @@ namespace Cadeteria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AltaCliente(Cliente Cliente)
+        public IActionResult AltaCliente(Cliente Cliente) //rol?
         {
             try
             {
@@ -65,7 +67,7 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult BajaCliente(int id)
+        public IActionResult BajaCliente(int id) //solo admin
         {
             try
             {
@@ -78,14 +80,14 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult ModificarCliente(int id)
+        public IActionResult ModificarCliente(int id) //admin y cliente
         {
             return View("../Cliente/ModCliente", DB.RepositorioCliente.GetClienteByID(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditarCliente(Cliente Cliente)
+        public IActionResult EditarCliente(Cliente Cliente) //admin y cliente
         {
             try
             {

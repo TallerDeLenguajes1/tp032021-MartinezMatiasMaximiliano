@@ -118,12 +118,12 @@ namespace Cadeteria.Entities
             Cadete CadeteLeido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = $"SELECT * FROM Cadetes WHERE usuarioID = @usuarioID";
+                string SQLQuery = $"SELECT * FROM Cadetes WHERE cadeteID = @cadeteID";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@usuarioID", ID);
+                    command.Parameters.AddWithValue("@cadeteID", ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         reader.Read();
@@ -142,6 +142,28 @@ namespace Cadeteria.Entities
             return CadeteLeido;
         }
 
+        public int GetCadeteID(int ID){
+            int result = -1;
+            using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
+            {
+                string SQLQuery = $"SELECT * FROM Cadetes WHERE usuarioID = @usuarioID";
+
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@usuarioID", ID);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        
+                        result = Convert.ToInt32(reader["cadeteID"]);
+                            
+                    }
+                }
+                connection.Close();
+            }
+            return result;
+        }
         public void SaveCadete(Cadete Cadete)
         {
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
@@ -165,10 +187,10 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"DELETE FROM Cadetes where usuarioID = @IDcadete";
+                string SQLQuery = $"UPDATE SET Activo = 0 FROM Cadetes WHERE cadeteID = @cadeteID";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@IDcadete", Id);
+                    command.Parameters.AddWithValue("@cadeteID", Id);
                     int AffectedRows = command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -180,7 +202,7 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"DELETE FROM Cadetes WHERE CadeteID = @IDcadete";
+                string SQLQuery = $"DELETE FROM Cadetes WHERE cadeteID = @IDcadete";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
                     command.Parameters.AddWithValue("@IDcadete", Id);
@@ -195,10 +217,10 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"UPDATE Cadetes SET nombre = @nombreCadete, direccion = @direccionCadete, telefono = @telefonoCadete WHERE usuarioID = @usuarioID;";
+                string SQLQuery = $"UPDATE Cadetes SET nombre = @nombreCadete, direccion = @direccionCadete, telefono = @telefonoCadete WHERE cadeteID = @cadeteID;";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@usuarioID", Cadete.Id);
+                    command.Parameters.AddWithValue("@cadeteID", Cadete.Id);
                     command.Parameters.AddWithValue("@nombreCadete", Cadete.Nombre);
                     command.Parameters.AddWithValue("@direccionCadete", Cadete.Direccion);
                     command.Parameters.AddWithValue("@telefonoCadete", Cadete.Telefono);

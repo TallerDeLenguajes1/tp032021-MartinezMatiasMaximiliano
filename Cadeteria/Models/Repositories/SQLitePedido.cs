@@ -34,9 +34,9 @@ namespace Cadeteria.Entities
                         {
                             Pedido Pedido = new Pedido()
                             {
-                                ID = Convert.ToInt32(PedidoLeido["PedidoID"]),
-                                Obs = PedidoLeido["observacionPedido"].ToString(),
-                                EstadoPedido = (Estado)Convert.ToInt32(PedidoLeido["estadoPedido"]),
+                                ID = Convert.ToInt32(PedidoLeido["pedidoID"]),
+                                Obs = PedidoLeido["obs"].ToString(),
+                                EstadoPedido = (Estado)Convert.ToInt32(PedidoLeido["estado"]),
                             };
 
                             string QueryCliente = "SELECT * FROM clientes WHERE clienteID = @clienteID";
@@ -48,9 +48,9 @@ namespace Cadeteria.Entities
                                     ClienteLeido.Read();
                                     Pedido.ClientePedido = new Cliente()
                                     {
-                                        Nombre = ClienteLeido["nombreCliente"].ToString(),
-                                        Direccion = ClienteLeido["direccionCliente"].ToString(),
-                                        Telefono = ClienteLeido["telefonoCliente"].ToString()
+                                        Nombre = ClienteLeido["nombre"].ToString(),
+                                        Direccion = ClienteLeido["direccion"].ToString(),
+                                        Telefono = ClienteLeido["telefono"].ToString()
                                     };
                                 }
                             }
@@ -116,18 +116,20 @@ namespace Cadeteria.Entities
             Pedido Pedido = null;
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = $"SELECT * FROM Pedidos WHERE PedidoID = {ID}";
+                string SQLQuery = $"SELECT * FROM Pedidos WHERE pedidoID = @pedidoID";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
+                    command.Parameters.AddWithValue("@pedidoID",ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         reader.Read();
                         Pedido = new Pedido()
                         {
-                            ID = Convert.ToInt32(reader["PedidoID"]),
-                            Obs = reader["observacionPedido"].ToString(),
+                            ID = Convert.ToInt32(reader["pedidoID"]),
+                            Obs = reader["obs"].ToString(),
+                            EstadoPedido = (Estado)Convert.ToInt32(reader["estado"])
                         };
                     }
                 }
@@ -159,9 +161,10 @@ namespace Cadeteria.Entities
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = $"UPDATE Pedidos set Activo = 0 where PedidoID = {ID}";
+                string SQLQuery = $"UPDATE Pedidos set activo = 0 where pedidoID = @pedidoID";
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
+                    command.Parameters.AddWithValue("@pedidoID",ID);
                     int AffectedRows = command.ExecuteNonQuery();
                 }
                 connection.Close();

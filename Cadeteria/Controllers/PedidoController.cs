@@ -18,19 +18,19 @@ namespace Cadeteria.Controllers
             DB = _DB;
         }
 
-        public IActionResult ListaPedidos()
+        public IActionResult ListaPedidos() //solo admin
         {
             return View(DB.RepositorioPedido.GetAllPedidos());
         }
 
-        public IActionResult AltaPedido()
+        public IActionResult AltaPedido() //todos
         {
             return View(new AltaPedidoViewModel(DB.RepositorioCadete.GetAllCadetes(),DB.RepositorioCliente.GetAllClientes()));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AltaPedido(Pedido Pedido,int CadeteID, int ClienteID)
+        public IActionResult AltaPedido(Pedido Pedido,int CadeteID, int ClienteID) //todos
         {
             try
             {
@@ -43,9 +43,8 @@ namespace Cadeteria.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult BajaPedido(int ID)
+        
+        public IActionResult BajaPedido(int ID)//cliente y admin
         {
             try
             {
@@ -58,14 +57,14 @@ namespace Cadeteria.Controllers
             }
         }
 
-        public IActionResult ModificarPedido(int ID)
+        public IActionResult ModificarPedido(int ID) //cliente y admin
         {
             return View("../Pedido/ModPedido", DB.RepositorioPedido.GetPedidoByID(ID));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditarPedido(Pedido Pedido)
+        public IActionResult EditarPedido(Pedido Pedido) //cliente y admin
         {
             try
             {

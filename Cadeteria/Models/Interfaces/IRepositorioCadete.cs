@@ -12,6 +12,7 @@ namespace Cadeteria.Entities
         void EditarCadete(Cadete Cadete);
         List<Cadete> GetAllCadetes();
         Cadete GetCadeteByID(int ID);
+        int GetCadeteID(int ID);
         void SaveCadete(Cadete Cadete);
     }
 }
