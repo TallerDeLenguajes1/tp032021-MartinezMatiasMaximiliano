@@ -45,6 +45,7 @@ namespace Cadeteria.Entities
                 return validado;
             }
         }
+        
         public bool SaveUsuario(Usuario Usuario)
         {
             bool success = false;

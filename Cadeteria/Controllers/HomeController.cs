@@ -12,7 +12,7 @@ using Cadeteria.Entities;
 
 namespace Cadeteria.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IDataBase DB; 
 

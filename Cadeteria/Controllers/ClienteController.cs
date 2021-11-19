@@ -8,7 +8,7 @@ using Cadeteria.Entities;
 
 namespace Cadeteria.Controllers
 {
-    public class ClienteController : Controller
+    public class ClienteController : BaseController
     {
         private readonly IDataBase DB;
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cadeteria.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly IDataBase DB;
 

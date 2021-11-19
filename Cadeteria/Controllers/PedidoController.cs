@@ -9,7 +9,7 @@ using Cadeteria.ViewModels;
 
 namespace Cadeteria.Controllers
 {
-    public class PedidoController : Controller
+    public class PedidoController : BaseController
     {
         private readonly IDataBase DB;
 
