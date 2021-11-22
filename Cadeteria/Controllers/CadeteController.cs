@@ -22,120 +22,132 @@ namespace Cadeteria.Controllers
 
         }
 
-        public IActionResult ListaCadetes()
+        public IActionResult ListaCadetes() //listo
         {
             try
             {
-                if (IsSesionIniciada() && GetRol() == 2) //solo admin
+                if (IsSesionIniciada() && GetRol() == 2)
                 {
-                    ListaCadetesViewModel listaCadetesViewModel  = new ListaCadetesViewModel(){
-                        listacadetes = mapper.Map<List<Cadete>,List<CadeteViewModel>>(DB.RepositorioCadete.GetAllCadetes())
-                    };
-                    
-                    return View();
+                    ListaCadetesViewModel listaCadetesVM = new();
+                    DB.RepositorioCadete.GetAllCadetes().ForEach(a => listaCadetesVM.listaCadetes.Add(mapper.Map<Cadete, CadeteViewModel>(a)));
+                    return View(listaCadetesVM);
                 }
                 else
                 {
                     return View("../Login/Login");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string error = e.Message;
                 return View("../Login/Login");
             }
         }
 
-        public IActionResult AltaCadete()
+        //reemplazado por alta usuario
+
+        //public IActionResult AltaCadete()
+        //{
+        //    try
+        //    {
+        //        if (IsSesionIniciada() && GetRol() == 2) //admin y cadete
+        //        {
+        //            return View();
+        //        }else{
+        //            return View("../Login/Login");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        string error = e.Message;
+        //        return View("../Login/Login");
+        //    }
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult AltaCadete(Cadete Cadete)
+        //{
+        //    try
+        //    {
+        //        if (IsSesionIniciada() && GetRol() == 2) // admin y cadete
+        //        {
+        //        DB.RepositorioCadete.SaveCadete(Cadete);
+        //        return RedirectToAction(nameof(ListaCadetes));
+        //        }else{
+        //            return View("../Login/Login");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        string error = e.Message;
+        //        return View("../Login/Login");
+        //    }
+        //}
+
+        public IActionResult BajaCadete(int ID) // listo
         {
             try
             {
-                if (IsSesionIniciada() && GetRol() == 2) //admin y cadete
+                if (IsSesionIniciada() && GetRol() == 2)
                 {
-                    return View();
-                }else{
+
+                    DB.RepositorioCadete.DesactivarCadete(ID);
+                    return RedirectToAction(nameof(ListaCadetes));
+                }
+                else
+                {
                     return View("../Login/Login");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string error = e.Message;
                 return View("../Login/Login");
             }
+        }
+
+        public IActionResult ModificarCadete(int ID) //listo
+        {
+            try
+            {
+                if (IsSesionIniciada() && GetRol() == 2)
+                {
+                    CadeteViewModel CadeteVM = mapper.Map<Cadete, CadeteViewModel>(DB.RepositorioCadete.GetCadeteByID(ID));
+                    return View("../Cadete/ModCadete", CadeteVM);
+                }
+                else
+                {
+                    return View("../Login/Login");
+                }
+            }
+            catch (Exception)
+            {
+                return View("../Login/Login");
+            }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AltaCadete(Cadete Cadete)
+        public IActionResult ModificarCadete(CadeteViewModel CadeteVM) //listo 
         {
             try
             {
-                if (IsSesionIniciada() && GetRol() == 2) // admin y cadete
+                Cadete Cadete = mapper.Map<CadeteViewModel, Cadete>(CadeteVM);
+
+                if (IsSesionIniciada() && GetRol() == 2)
                 {
-                DB.RepositorioCadete.SaveCadete(Cadete);
-                return RedirectToAction(nameof(ListaCadetes));
-                }else{
+                    DB.RepositorioCadete.EditarCadete(Cadete);
+                    return RedirectToAction(nameof(ListaCadetes));
+                }
+                else
+                {
                     return View("../Login/Login");
                 }
-            }
-            catch (Exception e)
-            {
-                string error = e.Message;
-                return View("../Login/Login");
-            }
-        }
 
-        public IActionResult BajaCadete(int ID)
-        {
-            try
-            {
-                if (IsSesionIniciada() && GetRol() == 2) //solo admin
-                {
-                  
-                DB.RepositorioCadete.DesactivarCadete(ID);
-                return RedirectToAction(nameof(ListaCadetes));
-                }else{
-                    return View("../Login/Login");
-                }
-            }
-            catch (Exception e)
-            {
-                string error = e.Message;
-                return View("../Login/Login");
-            }
-        }
 
-        public IActionResult ModificarCadete(int ID)
-        {
-            try
-            {
-                if (IsSesionIniciada() && GetRol() == 2) //solo admin
-                {
-                    return View("../Cadete/ModCadete",DB.RepositorioCadete.GetCadeteByID(ID));
-                }else{
-                    return View("../Login/Login");
-                }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string error = e.Message;
-                return View("../Login/Login");
-            }
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ModificarCadete(Cadete Cadete) //solo admin
-        {
-            try
-            {
-                DB.RepositorioCadete.EditarCadete(Cadete);
-                return RedirectToAction(nameof(ListaCadetes));
-            }
-            catch (Exception e)
-            {
-                string error = e.Message;
                 return RedirectToAction(nameof(ListaCadetes));
             }
         }

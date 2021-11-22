@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Cadeteria.Entities.Cliente>
+﻿@model Cadeteria.ViewModels.ListaClientesViewModel
 
 @{
     ViewData["Title"] = "ListaClientes";
@@ -12,16 +12,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                ID cliente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Direccion)
+                Direccion
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                Telefono
             </th>
             <th>
                 Editar|Borrar
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.listaClientes) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)

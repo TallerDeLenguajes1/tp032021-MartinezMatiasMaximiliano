@@ -12,24 +12,26 @@ namespace Cadeteria.ViewModels
 
     public class UsuarioAltaViewModel
     {
-        [Required(ErrorMessage ="El campo es requerido")]
+        [Required(ErrorMessage = "El campo es requerido")]
         public string Username { get; set; }
 
-[Required(ErrorMessage ="El campo es requerido")]
+        [Required(ErrorMessage = "El campo es requerido")]
         public string Password { get; set; }
 
-[Required(ErrorMessage ="El campo es requerido")]
+        [Required(ErrorMessage = "El campo es requerido")]
         [Compare(nameof(Password), ErrorMessage = "Las contraseñas ingresadas no son iguales")]
         public string RePassword { get; set; }
 
-[Required(ErrorMessage ="El campo es requerido")]
+        [Required(ErrorMessage = "El campo es requerido")]
         public string Nombre { get; set; }
-[Required(ErrorMessage ="El campo es requerido")]
+
+        [Required(ErrorMessage = "El campo es requerido")]
         public string Direccion { get; set; }
-[Required(ErrorMessage ="El campo es requerido")]
+
+        [Required(ErrorMessage = "El campo es requerido")]
         public string Telefono { get; set; }
 
-[Required(ErrorMessage ="El campo es requerido")]
+        [Required(ErrorMessage = "El campo es requerido")]
         public int Rol { get; set; }
     }
 }

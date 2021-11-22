@@ -11,6 +11,7 @@ namespace Cadeteria.Entities
         void DesactivarCliente(int Id);
         List<Cliente> GetAllClientes();
         Cliente GetClienteByID(int ID);
+        int GetClienteID(int ID);
         void ModificarCliente(Cliente Cliente);
         void SaveCliente(Cliente Cliente);
     }

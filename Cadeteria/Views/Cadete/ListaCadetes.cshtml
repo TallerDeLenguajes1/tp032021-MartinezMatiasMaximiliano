@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var cadete in Model.listacadetes)
+        @foreach (var cadete in Model.listaCadetes)
         {
             <tr>
                 <td>
@@ -45,7 +45,7 @@
                     @Html.DisplayFor(modelItem => cadete.Telefono)
                 </td>
                 <td>
-                    @cadete.PedidosDelCadete()
+                    
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "ModificarCadete", new { Id = cadete.Id }) |

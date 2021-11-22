@@ -8,6 +8,6 @@ namespace Cadeteria.ViewModels
 {
     public class ListaCadetesViewModel
     {
-        public List<Cadete> listacadetes { get; set; }
+        public List<CadeteViewModel> listaCadetes = new();
     }
 }

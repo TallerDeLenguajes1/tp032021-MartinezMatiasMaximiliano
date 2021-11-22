@@ -7,11 +7,23 @@ namespace Cadeteria.ViewModels
 {
     public class ClienteViewModel
     {
-        public int id {get;set;}
-        public int usuarioID{get;set;}
-        public string nombre{get;set;}
-        public string direccion{get;set;}
-        public string telefono{get;set;}
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
+        public int UsuarioID { get; set; }
 
     }
+
+    public class ListaClientesViewModel
+    {
+        public List<ClienteViewModel> listaClientes = new();
+    }
+
+    public class ClienteInfoViewModel
+    {
+        public ClienteViewModel ClienteVM;
+        public List<PedidoViewModel> listaPedidosVM = new();
+    }
+
 }

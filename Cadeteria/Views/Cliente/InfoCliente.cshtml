@@ -1,0 +1,29 @@
+﻿@model Cadeteria.ViewModels.ClienteInfoViewModel
+
+@{
+    ViewData["Title"] = "InfoCliente";
+}
+
+<h1>Cliente: @Model.ClienteVM.Nombre</h1>
+<h4>Lista de Pedidos:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.listaPedidosVM) {
+        <tr>
+            <td>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<form asp-action="AltaPedido" asp-controller="Pedido" method="get">
+    <input hidden name="ClienteID" id="ClienteID" value="@Model.ClienteVM.Id"/>
+    <input type="submit" value="NuevoPedido" />
+</form>

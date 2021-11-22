@@ -1,4 +1,4 @@
-﻿@model Cadeteria.ViewModels.AltaPedidoViewModel
+﻿@model Cadeteria.ViewModels.NuevoPedidoViewModel
 
 @{
     ViewData["Title"] = "AltaPedido";
@@ -13,44 +13,32 @@
         <form asp-action="AltaPedido">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Obs" class="control-label"></label>
-                <input asp-for="Obs" class="form-control" />
-                <span asp-validation-for="Obs" class="text-danger"></span>
+                <label asp-for="PedidoVM.Obs" class="control-label">Observacion</label>
+                <input asp-for="PedidoVM.Obs" class="form-control" />
+                <span asp-validation-for="PedidoVM.Obs" class="text-danger"></span>
             </div>
             <div class="form-check">
-                <h6>Estado del Pedido</h6>
-                <select asp-for="EstadoPedido" class="form-select">
-                    <option selected>Open this select menu</option>
+                <label>Estado del Pedido</label>
+                <select asp-for="PedidoVM.EstadoPedido" class="form-select">
                     <option value="0">Entregado</option>
                     <option value="1">En Proceso</option>
                     <option value="2">Cancelado</option>
                 </select>
             </div>
-            <div class="form-group">
-                <select name="CadeteID" id="CadeteID" class="form-select">
-                    @foreach (var Cadete in Model.ListaCadetes)
+            <div class="form-check">
+                <label>Elegir Cadete</label>
+                <select asp-for="CadeteID" class="form-select">
+                    @foreach (var Cadete in Model.listaCadetes)
                     {
                         <option value="@Cadete.Id">@Cadete.Nombre</option>
                     }
                 </select>
             </div>
-            <div>
-                <select name="ClienteID" id="ClienteID" class="form-select">
-                    @foreach (var Cliente in Model.ListaClientes)
-                    {
-                        <option value="@Cliente.Id">@Cliente.Nombre</option>
-                    }
-                </select>
-            </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear Pedido" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

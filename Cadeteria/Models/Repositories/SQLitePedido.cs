@@ -21,7 +21,7 @@ namespace Cadeteria.Entities
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = "SELECT * FROM Pedidos WHERE Activo = @estado";
+                string SQLQuery = "SELECT * FROM Pedidos WHERE activo = @estado";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
@@ -185,19 +185,33 @@ namespace Cadeteria.Entities
             }
         }
 
-        public void ModificarPedido(Pedido Pedido) { }
+        public void EditPedido(Pedido Pedido) {
+            using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
+            {
+                connection.Open();
+                string SQLQuery = $"UPDATE Pedidos SET obs = @obs, estado = @estado WHERE clienteID = @clienteID";
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@obs", Pedido.Obs);
+                    command.Parameters.AddWithValue("@estado", Pedido.EstadoPedido);
+                    command.Parameters.AddWithValue("@clienteID", Pedido.ClientePedido.Id);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
 
-        public List<Pedido> GetAllPedidos(string NombreCliente)
+        public List<Pedido> GetAllPedidosDeCliente(int ID)
         {
             List<Pedido> listaPedidos = new List<Pedido>();
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
                 connection.Open();
-                string SQLQuery = "SELECT * FROM PedidosPorCliente WHERE nombreCliente = @nombreCliente";
+                string SQLQuery = "SELECT * FROM Pedidos WHERE clienteID = @clienteID";
 
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
                 {
-                    command.Parameters.AddWithValue("nombreCliente", NombreCliente);
+                    command.Parameters.AddWithValue("clienteID", ID);
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -206,16 +220,14 @@ namespace Cadeteria.Entities
                             Pedido pedido = new Pedido()
                             {
                                 ID = Convert.ToInt32(reader["clienteID"]),
-                                Obs = reader["observacion"].ToString(),
-                                EstadoPedido = (Estado)reader["estadoPedido"]
+                                Obs = reader["obs"].ToString(),
+                                EstadoPedido = (Estado)Convert.ToInt32(reader["estado"])
                             };
 
                             listaPedidos.Add(pedido);
                         }
                     }
                 }
-
-
             }
             return listaPedidos;
         }

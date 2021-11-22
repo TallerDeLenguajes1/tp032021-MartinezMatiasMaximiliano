@@ -11,9 +11,9 @@ namespace Cadeteria.Entities
         void DesactivarPedido(int ID);
         List<Pedido> GetAllPedidos();
         public List<Pedido> GetAllPedidosDeCadete(int ID);
-        List<Pedido> GetAllPedidos(string NombreCliente);
+        List<Pedido> GetAllPedidosDeCliente(int ID);
         Pedido GetPedidoByID(int ID);
-        void ModificarPedido(Pedido Pedido);
+        void EditPedido(Pedido Pedido);
         void SavePedido(Pedido Pedido, int CadeteID, int ClienteID);
     }
 }

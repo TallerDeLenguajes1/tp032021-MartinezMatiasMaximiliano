@@ -46,8 +46,11 @@ namespace Cadeteria.Controllers
                             int cadeteID = DB.RepositorioCadete.GetCadeteID(GetIdUsuario());
                             return View("../Cadete/InfoCadete", new CadeteInfoViewModel(DB.RepositorioCadete.GetCadeteByID(cadeteID),DB.RepositorioPedido.GetAllPedidosDeCadete(cadeteID))); ;
                         case Rol.Cliente:
-
-                            //return View("../Cliente/InfoCliente", DB.RepositorioCliente.GetClienteByID(Usuario.ID));
+                            int clienteID = DB.RepositorioCliente.GetClienteID(GetIdUsuario());
+                            ClienteInfoViewModel ClienteVM = new();
+                            ClienteVM.ClienteVM = mapper.Map<Cliente, ClienteViewModel>(DB.RepositorioCliente.GetClienteByID(clienteID));
+                            DB.RepositorioPedido.GetAllPedidosDeCliente(clienteID).ForEach(a => ClienteVM.listaPedidosVM.Add( mapper.Map<Pedido, PedidoViewModel>(a)));
+                            return View("../Cliente/InfoCliente", ClienteVM);
                         default:
                             return View();
                     }

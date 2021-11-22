@@ -21,7 +21,7 @@ namespace Cadeteria.Entities
 
             using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
             {
-                string SQLQuery = "SELECT * FROM Clientes WHERE Activo = 1";
+                string SQLQuery = "SELECT * FROM Clientes WHERE activo = 1";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
@@ -59,15 +59,17 @@ namespace Cadeteria.Entities
                     command.Parameters.AddWithValue("@clienteID",ID);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        reader.Read();
-                        ClienteLeido = new Cliente()
-                        {
-                            Id = Convert.ToInt32(reader["clienteID"]),
-                            UsuarioID = Convert.ToInt32(reader["usuarioID"]),
-                            Nombre = reader["nombre"].ToString(),
-                            Direccion = reader["direccion"].ToString(),
-                            Telefono = reader["telefono"].ToString()
-                        };
+                        while (reader.Read()) {
+                            ClienteLeido = new Cliente()
+                            {
+                                Id = Convert.ToInt32(reader["clienteID"]),
+                                UsuarioID = Convert.ToInt32(reader["usuarioID"]),
+                                Nombre = reader["nombre"].ToString(),
+                                Direccion = reader["direccion"].ToString(),
+                                Telefono = reader["telefono"].ToString()
+                            };
+                        }
+                        
                     }
                 }
                 connection.Close();
@@ -138,6 +140,28 @@ namespace Cadeteria.Entities
                 }
                 connection.Close();
             }
+        }
+
+        public int GetClienteID(int ID)
+        {
+            int clienteID = -1;
+
+            using (SQLiteConnection connection = new SQLiteConnection(StringDeConexion))
+            {
+                connection.Open();
+                string SQLQuery = "SELECT clienteID FROM Clientes WHERE usuarioID = @usuarioID ";
+                using (SQLiteCommand command = new SQLiteCommand(SQLQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@usuarioID", ID);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        clienteID = Convert.ToInt32(reader["clienteID"]);
+                    }
+                }
+                connection.Close();
+            }
+                return clienteID;
         }
     }
 }
